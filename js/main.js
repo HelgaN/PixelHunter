@@ -1,3 +1,10 @@
+import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import introElement from './intro';
+
+addElement(introElement);
+
+/*
 const templates = document.querySelectorAll(`template`);
 const container = document.querySelector(`.central`);
 const content = container.innerHTML;
@@ -18,3 +25,4 @@ document.onkeydown = (evt) => {
     getElementFromTemplateNum(1);
   }
 }
+*/
