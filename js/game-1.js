@@ -1,3 +1,7 @@
+import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import gameTwoElement from './game-2';
+
 const gameOneElement = getElementFromTemplate(`
   <header class="header">
     <div class="header__back">
@@ -67,3 +71,18 @@ const gameOneElement = getElementFromTemplate(`
 `);
 
 export default gameOneElement;
+
+document.addEventListener(`click`, function() {
+  const answersPhoto = document.querySelectorAll(`input[name='question1']`);
+  const answersPoint = document.querySelectorAll(`input[name='question2']`);
+
+  if(answersPoint.length != 0 && answersPhoto.length != 0) {
+    const inputsChecked = document.querySelectorAll(`input:checked`);
+
+    if(inputsChecked.length == 2) {
+      addElement(gameTwoElement);
+    }
+  }
+})
+
+

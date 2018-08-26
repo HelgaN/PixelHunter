@@ -1,4 +1,6 @@
 import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import greetingElement from './greeting';
 
 const introElement = getElementFromTemplate(`
   <div id="main" class="central__content">
@@ -20,3 +22,14 @@ const introElement = getElementFromTemplate(`
 `);
 
 export default introElement;
+
+const main = document.querySelector(`.central`);
+
+main.onclick = (evt) => {
+  if(evt.target.className === `intro__asterisk`) {
+    addElement(greetingElement);
+  }
+}
+
+
+

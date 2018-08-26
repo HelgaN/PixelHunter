@@ -1,3 +1,7 @@
+import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import gameThreeElement from './game-3';
+
 const gameTwoElement = getElementFromTemplate(`
   <header class="header">
     <div class="header__back">
@@ -56,3 +60,16 @@ const gameTwoElement = getElementFromTemplate(`
 `);
 
 export default gameTwoElement;
+/*
+document.addEventListener(`click`, function() {
+  const answers = document.querySelectorAll(`input[name='question1']`);
+
+  if(answers.length != 0) {
+    const inputChecked = document.querySelector(`input:checked`);
+
+    if(inputChecked) {
+      addElement(gameThreeElement);
+    }
+  }
+})
+*/

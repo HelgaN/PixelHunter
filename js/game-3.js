@@ -1,3 +1,5 @@
+import getElementFromTemplate from './getElementFromTemplate';
+
 const gameThreeElement = getElementFromTemplate(`
   <header class="header">
     <div class="header__back">

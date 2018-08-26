@@ -1,3 +1,8 @@
+import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import gameOneElement from './game-1';
+import greetingElement from './greeting';
+
 const rulesElement = getElementFromTemplate(`
   <header class="header">
     <div class="header__back">
@@ -36,3 +41,12 @@ const rulesElement = getElementFromTemplate(`
 `);
 
 export default rulesElement;
+
+document.onsubmit = () => {
+  addElement(gameOneElement);
+}
+
+
+
+
+

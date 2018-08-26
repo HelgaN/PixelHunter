@@ -3,6 +3,13 @@ import addElement from './addElement';
 import introElement from './intro';
 
 addElement(introElement);
+/*
+const enterButton = document.querySelector(`.intro__asterisk`);
+
+enterButton.onclick = () => {
+  addElement(greetingElement);
+}
+*/
 
 /*
 const templates = document.querySelectorAll(`template`);

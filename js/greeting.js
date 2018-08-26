@@ -1,3 +1,7 @@
+import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import rulesElement from './rules';
+
 const greetingElement = getElementFromTemplate(`
   <div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -24,4 +28,23 @@ const greetingElement = getElementFromTemplate(`
   </footer>
 `);
 
+document.onclick = (evt) => {
+  if(evt.target.tagName === `IMG` && document.querySelector(`.greeting__continue`)) {
+    addElement(rulesElement);
+    const input = document.querySelector(`.rules__input`);
+
+    input.onchange = () => {
+      const button = document.querySelector(`.rules__button`);
+      if(input.value !== ``) {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+    }
+  }
+}
+
 export default greetingElement;
+
+
+
