@@ -1,6 +1,9 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
 import gameTwoElement from './game-2';
+import {transitionGameThree} from './game-2';
+
+import {transitionPrevPage} from './prevPage';
 
 const gameOneElement = getElementFromTemplate(`
   <header class="header">
@@ -72,17 +75,18 @@ const gameOneElement = getElementFromTemplate(`
 
 export default gameOneElement;
 
-document.addEventListener(`click`, function() {
-  const answersPhoto = document.querySelectorAll(`input[name='question1']`);
-  const answersPoint = document.querySelectorAll(`input[name='question2']`);
+export function transitionGameTwo() {
+  transitionPrevPage();
 
-  if(answersPoint.length != 0 && answersPhoto.length != 0) {
-    const inputsChecked = document.querySelectorAll(`input:checked`);
-
-    if(inputsChecked.length == 2) {
-      addElement(gameTwoElement);
-    }
-  }
-})
+ const inputs = document.querySelectorAll(`input`);
+ inputs.forEach(function(input) {
+   input.addEventListener("change", function() {
+     let inputsSelected = document.querySelectorAll(`input:checked`);
+     if(inputsSelected.length === 2) {
+       addElement(gameTwoElement, transitionGameThree);
+     }
+   })
+  });
+};
 
 

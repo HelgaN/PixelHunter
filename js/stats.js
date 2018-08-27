@@ -1,4 +1,6 @@
-const statsElement = getElementtFromTemplate(`
+import getElementFromTemplate from './getElementFromTemplate';
+
+const statsElement = getElementFromTemplate(`
   <header class="header">
     <div class="header__back">
       <button class="back">

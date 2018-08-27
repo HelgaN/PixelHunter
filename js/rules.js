@@ -1,7 +1,9 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
 import gameOneElement from './game-1';
-import greetingElement from './greeting';
+import {transitionGameTwo} from './game-1';
+
+import {transitionPrevPage} from './prevPage';
 
 const rulesElement = getElementFromTemplate(`
   <header class="header">
@@ -42,9 +44,24 @@ const rulesElement = getElementFromTemplate(`
 
 export default rulesElement;
 
-document.onsubmit = () => {
-  addElement(gameOneElement);
-}
+export function transitionGameOne() {
+  transitionPrevPage();
+
+  const input = document.querySelector(`.rules__input`);
+
+  input.onchange = () => {
+    const button = document.querySelector(`.rules__button`);
+    if(input.value !== ``) {
+      button.disabled = false;
+      button.onclick = () => {
+        addElement(gameOneElement, transitionGameTwo);
+      }
+    } else {
+      button.disabled = true;
+    }
+  }
+};
+
 
 
 

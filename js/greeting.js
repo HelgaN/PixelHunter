@@ -1,6 +1,7 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
 import rulesElement from './rules';
+import {transitionGameOne} from './rules';
 
 const greetingElement = getElementFromTemplate(`
   <div class="greeting central--blur">
@@ -28,23 +29,16 @@ const greetingElement = getElementFromTemplate(`
   </footer>
 `);
 
-document.onclick = (evt) => {
-  if(evt.target.tagName === `IMG` && document.querySelector(`.greeting__continue`)) {
-    addElement(rulesElement);
-    const input = document.querySelector(`.rules__input`);
-
-    input.onchange = () => {
-      const button = document.querySelector(`.rules__button`);
-      if(input.value !== ``) {
-        button.disabled = false;
-      } else {
-        button.disabled = true;
-      }
-    }
+export function transitionGo() {
+  const button = document.querySelector(`.greeting__continue`);
+  button.onclick = (evt) => {
+    addElement(rulesElement, transitionGameOne);
   }
-}
+};
 
 export default greetingElement;
+
+
 
 
 

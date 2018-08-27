@@ -1,4 +1,8 @@
 import getElementFromTemplate from './getElementFromTemplate';
+import addElement from './addElement';
+import statsElement from './stats';
+
+import {transitionPrevPage} from './prevPage';
 
 const gameThreeElement = getElementFromTemplate(`
   <header class="header">
@@ -56,3 +60,15 @@ const gameThreeElement = getElementFromTemplate(`
 `);
 
 export default gameThreeElement;
+
+export function transitionStats() {
+  transitionPrevPage();
+  
+  const imgs = document.querySelectorAll(`.game__option`);
+
+  imgs.forEach(function(img) {
+    img.addEventListener(`click`, function () {
+      addElement(statsElement, transitionPrevPage);
+    })
+  })
+};

@@ -1,6 +1,9 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
 import gameThreeElement from './game-3';
+import {transitionStats} from './game-3';
+
+import {transitionPrevPage} from './prevPage';
 
 const gameTwoElement = getElementFromTemplate(`
   <header class="header">
@@ -60,16 +63,15 @@ const gameTwoElement = getElementFromTemplate(`
 `);
 
 export default gameTwoElement;
-/*
-document.addEventListener(`click`, function() {
-  const answers = document.querySelectorAll(`input[name='question1']`);
 
-  if(answers.length != 0) {
-    const inputChecked = document.querySelector(`input:checked`);
+export function transitionGameThree() {
+  transitionPrevPage();
 
-    if(inputChecked) {
-      addElement(gameThreeElement);
-    }
-  }
-})
-*/
+  const inputs = document.querySelectorAll(`input`);
+  inputs.forEach(function(input) {
+    input.addEventListener(`change`, function () {
+      addElement(gameThreeElement, transitionStats);
+    })
+  })
+};
+
