@@ -6,6 +6,7 @@ import {transitionStats} from './game-3';
 import {transitionPrevPage} from './prevPage';
 import headerGame from './header-game';
 import initialState from './data.js';
+import {questions} from './data.js';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -22,13 +23,11 @@ const stats = `<div class="stats">
       </ul>
     </div>`;
 
-const gameTwoElement = getElementFromTemplate(`
-  ${headerGame(initialState)}
-  <div class="game">
-    <p class="game__task">Угадай, фото или рисунок?</p>
+const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+      <!-- http://placehold.it/705x455-->
+        <img src="${state.imgOne.src}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -38,7 +37,12 @@ const gameTwoElement = getElementFromTemplate(`
           <span>Рисунок</span>
         </label>
       </div>
-    </form>
+    </form>`
+
+const gameTwoElement = getElementFromTemplate(`
+  ${headerGame(initialState)}
+  <div class="game">
+    ${gameTwoState(questions[`one-pic`])}
     ${stats}
   </div>
 `);

@@ -5,6 +5,7 @@ import statsElement from './stats';
 import {transitionPrevPage} from './prevPage';
 import headerGame from './header-game';
 import initialState from './data.js';
+import {questions} from './data.js';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -21,21 +22,24 @@ const stats = `<div class="stats">
       </ul>
     </div>`;
 
+const gameThreeState = (state) => `<p class="game__task">${state.title}<!--Найдите рисунок среди изображений--></p>
+    <form class="game__content  game__content--triple">
+    <!-- http://placehold.it/304x455-->
+      <div class="game__option">
+        <img src="${state.imgOne.src}" alt="Option 1" width="304" height="455">
+      </div>
+      <div class="game__option  game__option--selected">
+        <img src="${state.imgTwo.src}" alt="Option 1" width="304" height="455">
+      </div>
+      <div class="game__option">
+        <img src="${state.imgThree.src}" alt="Option 1" width="304" height="455">
+      </div>
+    </form>`
+
 const gameThreeElement = getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
-    <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-    </form>
+    ${gameThreeState(questions[`three-pic`])}
     ${stats}
   </div>
 `);

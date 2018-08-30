@@ -6,6 +6,7 @@ import {transitionGameThree} from './game-2';
 import {transitionPrevPage} from './prevPage';
 import headerGame from './header-game';
 import initialState from './data.js';
+import {questions} from './data.js';
 
 
 const stats = `<div class="stats">
@@ -23,13 +24,11 @@ const stats = `<div class="stats">
       </ul>
     </div>`
 
-const gameOneElement = getElementFromTemplate(`
-  ${headerGame(initialState)}
-  <div class="game">
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
     <form class="game__content">
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+      <!--http://placehold.it/468x458 -->
+        <img src="${state.imgOne.src}" alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -40,7 +39,8 @@ const gameOneElement = getElementFromTemplate(`
         </label>
       </div>
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+      <!--http://placehold.it/468x458 -->
+        <img src="${state.imgTwo.src}" alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
           <input name="question2" type="radio" value="photo">
           <span>Фото</span>
@@ -50,7 +50,12 @@ const gameOneElement = getElementFromTemplate(`
           <span>Рисунок</span>
         </label>
       </div>
-    </form>
+    </form>`
+
+const gameOneElement = getElementFromTemplate(`
+  ${headerGame(initialState)}
+  <div class="game">
+    ${gameOneState(initialState)}
     ${stats}
   </div>
 `);
