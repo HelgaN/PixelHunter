@@ -47,14 +47,14 @@ export const questions = Object.freeze({
   'one-pic': {
     title: `Угадай, фото или рисунок?`,
     imgOne: {
-      src: `https://i.imgur.com/DiHM5Zb.jpg`,
+      src: `https://k42.kn3.net/D2F0370D6.jpg`,
       answer: `photo`
     }
   },
   'three-pic': {
     title: `Найдите рисунок среди изображений`,
     imgOne: {
-      src: `https://k42.kn3.net/D2F0370D6.jpg`,
+      src: `https://i.imgur.com/DiHM5Zb.jpg`,
       answer: `paint`
     },
     imgTwo: {
