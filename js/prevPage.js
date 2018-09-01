@@ -7,7 +7,7 @@ export function transitionPrevPage() {
 
   backButton.onclick = () => {
     addElement(greetingElement, transitionGo);
-  }
-};
+  };
+}
 
 

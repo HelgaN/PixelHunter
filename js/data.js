@@ -43,7 +43,7 @@ export const questions = Object.freeze({
       src: `http://i.imgur.com/1KegWPz.jpg`,
       answer: `photo`
     }
-   },
+  },
   'one-pic': {
     title: `Угадай, фото или рисунок?`,
     imgOne: {

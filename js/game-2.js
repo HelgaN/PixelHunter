@@ -37,7 +37,7 @@ const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Уга�
           <span>Рисунок</span>
         </label>
       </div>
-    </form>`
+    </form>`;
 
 const gameTwoElement = getElementFromTemplate(`
   ${headerGame(initialState)}
@@ -53,10 +53,10 @@ export function transitionGameThree() {
   transitionPrevPage();
 
   const inputs = document.querySelectorAll(`input`);
-  inputs.forEach(function(input) {
+  inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
       addElement(gameThreeElement, transitionStats);
-    })
-  })
-};
+    });
+  });
+}
 

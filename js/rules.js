@@ -41,23 +41,21 @@ const rulesElement = getElementFromTemplate(`
 
 export default rulesElement;
 
-export function transitionGameOne() {
-  transitionPrevPage();
-
-  const input = document.querySelector(`.rules__input`);
-
-  input.onchange = () => {
-    const button = document.querySelector(`.rules__button`);
-    if(input.value !== ``) {
-      button.disabled = false;
-      button.onclick = () => {
-        addElement(gameOneElement, transitionGameTwo);
-      }
-    } else {
-      button.disabled = true;
-    }
+const inputChange = (input, button) => {
+  if (input.value !== ``) {
+    button.disabled = false;
+    button.onclick = () => addElement(gameOneElement, transitionGameTwo);
+  } else {
+    button.disabled = true;
   }
 };
+
+export function transitionGameOne() {
+  transitionPrevPage();
+  const input = document.querySelector(`.rules__input`);
+  const button = document.querySelector(`.rules__button`);
+  input.onchange = () => inputChange(input, button);
+}
 
 
 

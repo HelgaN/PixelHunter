@@ -27,14 +27,7 @@ const greetingElement = getElementFromTemplate(`
 
 export function transitionGo() {
   const button = document.querySelector(`.greeting__continue`);
-  button.onclick = (evt) => {
-    addElement(rulesElement, transitionGameOne);
-  }
-};
+  button.onclick = () => addElement(rulesElement, transitionGameOne);
+}
 
 export default greetingElement;
-
-
-
-
-

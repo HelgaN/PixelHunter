@@ -16,10 +16,7 @@ export default introElement;
 
 export function transitionRules() {
   const button = document.querySelector(`.intro__asterisk`);
-  button.onclick = (evt) => {
+  button.onclick = () => {
     addElement(greetingElement, transitionGo);
-  }
-};
-
-
-
+  };
+}

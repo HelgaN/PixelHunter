@@ -6,7 +6,6 @@ import {transitionGameThree} from './game-2';
 import {transitionPrevPage} from './prevPage';
 import headerGame from './header-game';
 import initialState from './data.js';
-import {questions} from './data.js';
 
 
 const stats = `<div class="stats">
@@ -22,7 +21,7 @@ const stats = `<div class="stats">
         <li class="stats__result stats__result--unknown"></li>
         <li class="stats__result stats__result--unknown"></li>
       </ul>
-    </div>`
+    </div>`;
 
 const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
     <form class="game__content">
@@ -50,7 +49,7 @@ const gameOneState = (state) => `<p class="game__task">${state.title}<!--Уга�
           <span>Рисунок</span>
         </label>
       </div>
-    </form>`
+    </form>`;
 
 const gameOneElement = getElementFromTemplate(`
   ${headerGame(initialState)}
@@ -65,15 +64,15 @@ export default gameOneElement;
 export function transitionGameTwo() {
   transitionPrevPage();
 
- const inputs = document.querySelectorAll(`input`);
- inputs.forEach(function(input) {
-   input.addEventListener("change", function() {
-     let inputsSelected = document.querySelectorAll(`input:checked`);
-     if(inputsSelected.length === 2) {
-       addElement(gameTwoElement, transitionGameThree);
-     }
-   })
+  const inputs = document.querySelectorAll(`input`);
+  inputs.forEach(function (input) {
+    input.addEventListener(`change`, function () {
+      let inputsSelected = document.querySelectorAll(`input:checked`);
+      if (inputsSelected.length === 2) {
+        addElement(gameTwoElement, transitionGameThree);
+      }
+    });
   });
-};
+}
 
 

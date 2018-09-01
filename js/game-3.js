@@ -34,7 +34,7 @@ const gameThreeState = (state) => `<p class="game__task">${state.title}<!--На�
       <div class="game__option">
         <img src="${state.imgThree.src}" alt="Option 1" width="304" height="455">
       </div>
-    </form>`
+    </form>`;
 
 const gameThreeElement = getElementFromTemplate(`
   ${headerGame(initialState)}
@@ -51,9 +51,9 @@ export function transitionStats() {
 
   const imgs = document.querySelectorAll(`.game__option`);
 
-  imgs.forEach(function(img) {
+  imgs.forEach(function (img) {
     img.addEventListener(`click`, function () {
       addElement(statsElement, transitionPrevPage);
-    })
-  })
-};
+    });
+  });
+}
