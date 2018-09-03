@@ -4,6 +4,7 @@ import gameTwoElement from './game-2';
 import {transitionGameThree} from './game-2';
 
 import {transitionPrevPage} from './prevPage';
+import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
 import {game} from './data/game.js';
@@ -64,6 +65,7 @@ export default gameOneElement;
 
 export function transitionGameTwo() {
   transitionPrevPage();
+  timer();
 
   const inputs = document.querySelectorAll(`input`);
   inputs.forEach(function (input) {
@@ -75,5 +77,9 @@ export function transitionGameTwo() {
     });
   });
 }
+
+
+
+
 
 

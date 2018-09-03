@@ -3,6 +3,7 @@ import addElement from './addElement';
 import statsElement from './stats';
 
 import {transitionPrevPage} from './prevPage';
+import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
 import {game} from './data/game.js';
@@ -48,6 +49,7 @@ export default gameThreeElement;
 
 export function transitionStats() {
   transitionPrevPage();
+  timer();
 
   const imgs = document.querySelectorAll(`.game__option`);
 
