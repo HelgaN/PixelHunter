@@ -4,8 +4,8 @@ import statsElement from './stats';
 
 import {transitionPrevPage} from './prevPage';
 import headerGame from './header-game';
-import initialState from './data.js';
-import {questions} from './data.js';
+import initialState from './data/game.js';
+import {game} from './data/game.js';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -39,7 +39,7 @@ const gameThreeState = (state) => `<p class="game__task">${state.title}<!--На�
 const gameThreeElement = getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    ${gameThreeState(questions[`three-pic`])}
+    ${gameThreeState(game[`three-pic`])}
     ${stats}
   </div>
 `);

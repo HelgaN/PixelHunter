@@ -1,4 +1,5 @@
 import getElementFromTemplate from './getElementFromTemplate';
+import {Stats} from './data/game.js';
 
 const header = `<header class="header">
     <div class="header__back">
@@ -18,16 +19,16 @@ const statsElement = getElementFromTemplate(`
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--${Stats.WRONG}"></li>
+            <li class="stats__result stats__result--${Stats.SLOW}"></li>
+            <li class="stats__result stats__result--${Stats.FAST}"></li>
+            <li class="stats__result stats__result--${Stats.CORRECT}"></li>
+            <li class="stats__result stats__result--${Stats.WRONG}"></li>
+            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
+            <li class="stats__result stats__result--${Stats.SLOW}"></li>
+            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
+            <li class="stats__result stats__result--${Stats.FAST}"></li>
+            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
           </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>
