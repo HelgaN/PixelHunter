@@ -6,7 +6,10 @@ import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
-import {game} from './data/game.js';
+import {game, countQuestions, currentState} from './data/game.js';
+
+import {questionFour, questionSeven, questionTen} from './game-1';
+import {transitionGameTwo} from './game-1';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -37,25 +40,41 @@ const gameThreeState = (state) => `<p class="game__task">${state.title}<!--На�
       </div>
     </form>`;
 
-const gameThreeElement = getElementFromTemplate(`
+const gameThreeElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    ${gameThreeState(game[`three-pic`])}
+    ${gameThreeState(state)}
     ${stats}
   </div>
 `);
+
+export const questionThree = gameThreeElement(game[2]);
+export const questionSix = gameThreeElement(game[5]);
+export const questionNine = gameThreeElement(game[8]);
 
 export default gameThreeElement;
 
 export function transitionStats() {
   transitionPrevPage();
   timer();
+  countQuestions(currentState);
+  console.log(currentState);
 
   const imgs = document.querySelectorAll(`.game__option`);
 
   imgs.forEach(function (img) {
-    img.addEventListener(`click`, function () {
-      addElement(statsElement, transitionPrevPage);
+    img.addEventListener(`click`, function (timer) {
+      /*addElement(statsElement, transitionPrevPage);*/
+      if(currentState.numberOfQuestions == 7) {
+        alert(`q4`);
+        addElement(questionFour, transitionGameTwo);
+      } else if(currentState.numberOfQuestions == 4) {
+        alert(`q7`);
+        addElement(questionSeven, transitionGameTwo);
+      } else if(currentState.numberOfQuestions == 1/* !!!!*/) {
+        alert(`q10`);
+        addElement(questionTen, transitionGameTwo);
+      }
     });
   });
 }

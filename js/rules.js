@@ -1,9 +1,10 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
-import gameOneElement from './game-1';
+import {questionOne} from './game-1';
 import {transitionGameTwo} from './game-1';
 
 import {transitionPrevPage} from './prevPage';
+import {game} from './data/game.js';
 
 const header = `  <header class="header">
     <div class="header__back">
@@ -44,7 +45,8 @@ export default rulesElement;
 const inputChange = (input, button) => {
   if (input.value !== ``) {
     button.disabled = false;
-    button.onclick = () => addElement(gameOneElement, transitionGameTwo);
+    alert(`q1`);
+    button.onclick = () => addElement(questionOne, transitionGameTwo);
   } else {
     button.disabled = true;
   }

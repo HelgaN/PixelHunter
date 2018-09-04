@@ -1,23 +1,7 @@
-const initialState = Object.freeze({
-  level: `two-pic`,
-  lives: 3,
-  time: 30
-});
-
-export default initialState;
-
 export const Result = {
   PAINT: `paint`,
   PHOTO: `photo`
 };
-
-export const Stats = {
-  WRONG: `wrong`,
-  SLOW: `slow`,
-  FAST: `fast`,
-  CORRECT: `correct`,
-  UNKNOWN: `unknown`
-}
 
 export const Questions = [
   {
@@ -46,6 +30,89 @@ export const Questions = [
   }
 ];
 
+export const game = Object.freeze([
+  {
+    type: 'two-pic',
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    imgOne: Questions[0],
+    imgTwo: Questions[1]
+  },
+  {
+    type: 'one-pic',
+    title: `Угадай, фото или рисунок?`,
+    imgOne: Questions[2]
+  },
+  {
+    type: 'three-pic',
+    title: `Найдите рисунок среди изображений`,
+    imgOne: Questions[3],
+    imgTwo: Questions[4],
+    imgThree: Questions[5]
+  },
+  {
+    type: 'two-pic',
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    imgOne: Questions[5],
+    imgTwo: Questions[4]
+  },
+  {
+    type: 'one-pic',
+    title: `Угадай, фото или рисунок?`,
+    imgOne: Questions[0]
+  },
+  {
+    type: 'three-pic',
+    title: `Найдите рисунок среди изображений`,
+    imgOne: Questions[1],
+    imgTwo: Questions[2],
+    imgThree: Questions[3]
+  },
+  {
+    type: 'two-pic',
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    imgOne: Questions[0],
+    imgTwo: Questions[5]
+  },
+  {
+    type: 'one-pic',
+    title: `Угадай, фото или рисунок?`,
+    imgOne: Questions[2]
+  },
+  {
+    type: 'three-pic',
+    title: `Найдите рисунок среди изображений`,
+    imgOne: Questions[1],
+    imgTwo: Questions[3],
+    imgThree: Questions[4]
+  },
+  {
+    type: 'two-pic',
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    imgOne: Questions[2],
+    imgTwo: Questions[5]
+  }
+]);
+
+const initialState = Object.freeze({
+  level: game[0],
+  lives: 3,
+  time: 30,
+  numberOfQuestions: 10
+});
+
+export const currentState = Object.assign({}, initialState);
+
+export default initialState;
+
+export const Stats = {
+  WRONG: `wrong`,
+  SLOW: `slow`,
+  FAST: `fast`,
+  CORRECT: `correct`,
+  UNKNOWN: `unknown`
+}
+
+/*
 export const game = Object.freeze({
   'two-pic': {
     title: `Угадайте для каждого изображения фото или рисунок?`,
@@ -62,7 +129,23 @@ export const game = Object.freeze({
     imgTwo: Questions[4],
     imgThree: Questions[5]
   }
-});
+});*/
+
+
+export function setLives (game, lives) {
+  if (lives < 0) {
+    throw new RangeError(`Can't set negative lives`);
+  }
+  const newGame = Object.assign({}, game);
+  newGame.lives = lives;
+  return newGame;
+}
+
+export function countQuestions (game) {
+  game.numberOfQuestions--;
+  return game;
+}
+
 
 
 

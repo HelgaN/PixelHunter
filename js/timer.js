@@ -14,3 +14,5 @@ export function timer() {
   }
   const timeinterval = setInterval(updateClock, 1000);
 }
+
+

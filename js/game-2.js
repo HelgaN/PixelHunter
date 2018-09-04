@@ -1,13 +1,13 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
-import gameThreeElement from './game-3';
+import {questionThree, questionSix, questionNine} from './game-3';
 import {transitionStats} from './game-3';
 
 import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
-import {game} from './data/game.js';
+import {game, countQuestions, currentState} from './data/game.js';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -40,24 +40,40 @@ const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
     </form>`;
 
-const gameTwoElement = getElementFromTemplate(`
+const gameTwoElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    ${gameTwoState(game[`one-pic`])}
+    ${gameTwoState(state)}
     ${stats}
   </div>
 `);
+
+export const questionTwo = gameTwoElement(game[1]);
+export const questionFive = gameTwoElement(game[4]);
+export const questionEight = gameTwoElement(game[7]);
 
 export default gameTwoElement;
 
 export function transitionGameThree() {
   transitionPrevPage();
   timer();
+  countQuestions(currentState);
+  console.log(currentState);
 
   const inputs = document.querySelectorAll(`input`);
   inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
-      addElement(gameThreeElement, transitionStats);
+      input.checked = false;
+      if(currentState.numberOfQuestions == 8) {
+        alert(`q3`);
+        addElement(questionThree, transitionStats);
+      } else if(currentState.numberOfQuestions == 5) {
+        alert(`q6`);
+        addElement(questionSix, transitionStats);
+      } else if(currentState.numberOfQuestions == 2) {
+        alert(`q9`);
+        addElement(questionNine, transitionStats);
+      }
     });
   });
 }

@@ -1,14 +1,15 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
-import gameTwoElement from './game-2';
+import {questionTwo, questionFive, questionEight} from './game-2';
 import {transitionGameThree} from './game-2';
 
 import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
-import {game} from './data/game.js';
+import {game, countQuestions, currentState} from './data/game.js';
 
+import statsElement from './stats';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -53,27 +54,48 @@ const gameOneState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
     </form>`;
 
-const gameOneElement = getElementFromTemplate(`
+const gameOneElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    ${gameOneState(game[`two-pic`])}
+    ${gameOneState(state/*game[`two-pic`]*/)}
     ${stats}
   </div>
 `);
+
+export const questionOne = gameOneElement(game[0]);
+export const questionFour = gameOneElement(game[3]);
+export const questionSeven = gameOneElement(game[6]);
+export const questionTen = gameOneElement(game[9]);
 
 export default gameOneElement;
 
 export function transitionGameTwo() {
   transitionPrevPage();
   timer();
+  countQuestions(currentState);
+  console.log(currentState);
 
   const inputs = document.querySelectorAll(`input`);
+
   inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
       let inputsSelected = document.querySelectorAll(`input:checked`);
       if (inputsSelected.length === 2) {
-        addElement(gameTwoElement, transitionGameThree);
-      }
+          inputsSelected[0].checked = false;
+          inputsSelected[1].checked = false;
+          if(currentState.numberOfQuestions >= 9) {
+            alert(`q2`);
+            addElement(questionTwo, transitionGameThree);
+          } else if (currentState.numberOfQuestions == 6) {
+            addElement(questionFive, transitionGameThree);
+            alert(`q5`);
+          } else if (currentState.numberOfQuestions == 3){
+            addElement(questionEight, transitionGameThree);
+            alert(`q8`);
+          } else {
+            addElement(statsElement, transitionPrevPage);
+          }
+        }
     });
   });
 }
