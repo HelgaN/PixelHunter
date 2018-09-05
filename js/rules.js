@@ -45,7 +45,6 @@ export default rulesElement;
 const inputChange = (input, button) => {
   if (input.value !== ``) {
     button.disabled = false;
-    alert(`q1`);
     button.onclick = () => addElement(questionOne, transitionGameTwo);
   } else {
     button.disabled = true;

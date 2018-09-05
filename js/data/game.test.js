@@ -1,6 +1,6 @@
 import assert from 'assert';
 import initialState from './game';
-import {setLives} from './game';
+import {setLives, game} from './game';
 
 describe(`Array`, () => {
   describe(`#indexOf()`, () => {
@@ -37,6 +37,18 @@ describe(`Game`, () => {
   describe(`game time`, () => {
     it(`play time should last 30 seconds`, () => {
       assert.equal(initialState.time, 30);
+    });
+  });
+
+  describe(`type of questions`, () => {
+    it(`should be three types of questions`, () => {
+      let arr = [];
+      for (let value of game) {
+        arr.push(value.type);
+      }
+      const uniq = [...new Set(arr)];
+
+      assert.equal(uniq.length, 3);
     });
   });
 

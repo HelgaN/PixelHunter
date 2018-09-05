@@ -54,6 +54,11 @@ export const questionEight = gameTwoElement(game[7]);
 
 export default gameTwoElement;
 
+const checkTheAnswerOfTypeOne = (data, numQuestion, gameState) => {
+  const inputSelected = document.querySelector(`input:checked`);
+  (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);
+}
+
 export function transitionGameThree() {
   transitionPrevPage();
   timer();
@@ -63,17 +68,17 @@ export function transitionGameThree() {
   const inputs = document.querySelectorAll(`input`);
   inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
-      input.checked = false;
       if(currentState.numberOfQuestions == 8) {
-        alert(`q3`);
+        checkTheAnswerOfTypeOne(game, 2, currentState);
         addElement(questionThree, transitionStats);
       } else if(currentState.numberOfQuestions == 5) {
-        alert(`q6`);
+        checkTheAnswerOfTypeOne(game, 5, currentState);
         addElement(questionSix, transitionStats);
       } else if(currentState.numberOfQuestions == 2) {
-        alert(`q9`);
+        checkTheAnswerOfTypeOne(game, 8, currentState);
         addElement(questionNine, transitionStats);
       }
+      input.checked = false;
     });
   });
 }

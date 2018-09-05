@@ -69,6 +69,11 @@ export const questionTen = gameOneElement(game[9]);
 
 export default gameOneElement;
 
+const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState) => {
+  const inputsSelected = document.querySelectorAll(`input:checked`);
+  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);
+}
+
 export function transitionGameTwo() {
   transitionPrevPage();
   timer();
@@ -79,22 +84,26 @@ export function transitionGameTwo() {
 
   inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
+
       let inputsSelected = document.querySelectorAll(`input:checked`);
       if (inputsSelected.length === 2) {
-          inputsSelected[0].checked = false;
-          inputsSelected[1].checked = false;
+
           if(currentState.numberOfQuestions >= 9) {
-            alert(`q2`);
+            checkTheAnswerOfTypeTwo(game, 1, currentState);
             addElement(questionTwo, transitionGameThree);
           } else if (currentState.numberOfQuestions == 6) {
+            checkTheAnswerOfTypeTwo(game, 4, currentState);
             addElement(questionFive, transitionGameThree);
-            alert(`q5`);
           } else if (currentState.numberOfQuestions == 3){
+            checkTheAnswerOfTypeTwo(game, 7, currentState);
             addElement(questionEight, transitionGameThree);
-            alert(`q8`);
           } else {
+            checkTheAnswerOfTypeTwo(game, 10, currentState);
+            console.log(currentState);
             addElement(statsElement, transitionPrevPage);
           }
+          inputsSelected[0].checked = false;
+          inputsSelected[1].checked = false;
         }
     });
   });

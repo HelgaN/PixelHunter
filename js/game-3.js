@@ -54,6 +54,21 @@ export const questionNine = gameThreeElement(game[8]);
 
 export default gameThreeElement;
 
+const checkTheAnswerOfTypeThree = (evt, data, numQuestion, currentGame) => {
+  const img = evt.target.querySelector(`img`);
+  const srcImg = img.src;
+  const imgs = [data[numQuestion - 1].imgOne.src, data[numQuestion - 1].imgTwo.src, data[numQuestion - 1].imgThree.src];
+  const indexImg = imgs.indexOf(srcImg);
+
+  if(indexImg === 0) {
+    (data[numQuestion - 1].imgOne.answer === `paint`) ? currentGame.userAnswers.push(true) : currentGame.userAnswers.push(false);
+  } else if(indexImg === 1) {
+    (data[numQuestion - 1].imgTwo.answer === `paint`) ? currentGame.userAnswers.push(true) : currentGame.userAnswers.push(false);
+  } else {
+    (data[numQuestion - 1].imgThree.answer === `paint`) ? currentGame.userAnswers.push(true) : currentGame.userAnswers.push(false);
+  }
+}
+
 export function transitionStats() {
   transitionPrevPage();
   timer();
@@ -63,16 +78,17 @@ export function transitionStats() {
   const imgs = document.querySelectorAll(`.game__option`);
 
   imgs.forEach(function (img) {
-    img.addEventListener(`click`, function (timer) {
+    img.addEventListener(`click`, function (evt) {
+
       /*addElement(statsElement, transitionPrevPage);*/
       if(currentState.numberOfQuestions == 7) {
-        alert(`q4`);
+        checkTheAnswerOfTypeThree(evt, game, 3, currentState);
         addElement(questionFour, transitionGameTwo);
       } else if(currentState.numberOfQuestions == 4) {
-        alert(`q7`);
+        checkTheAnswerOfTypeThree(evt, game, 6, currentState);
         addElement(questionSeven, transitionGameTwo);
-      } else if(currentState.numberOfQuestions == 1/* !!!!*/) {
-        alert(`q10`);
+      } else if(currentState.numberOfQuestions == 1) {
+        checkTheAnswerOfTypeThree(evt, game, 9, currentState);
         addElement(questionTen, transitionGameTwo);
       }
     });

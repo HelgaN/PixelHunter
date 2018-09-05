@@ -58,7 +58,8 @@ export const game = Object.freeze([
   {
     type: 'one-pic',
     title: `Угадай, фото или рисунок?`,
-    imgOne: Questions[0]
+    imgOne: Questions[0],
+    userAnswer: `unknow`
   },
   {
     type: 'three-pic',
@@ -97,7 +98,8 @@ const initialState = Object.freeze({
   level: game[0],
   lives: 3,
   time: 30,
-  numberOfQuestions: 10
+  numberOfQuestions: 10,
+  userAnswers: new Array()
 });
 
 export const currentState = Object.assign({}, initialState);
