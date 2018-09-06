@@ -8,6 +8,7 @@ import {timer} from './timer.js';
 import headerGame from './header-game';
 import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
+import {analyzeTheSpeedOfAnswer} from './analyze-time';
 
 import statsElement from './stats';
 
@@ -69,9 +70,11 @@ export const questionTen = gameOneElement(game[9]);
 
 export default gameOneElement;
 
-const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState) => {
+const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState, time) => {/*
   const inputsSelected = document.querySelectorAll(`input:checked`);
-  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);
+  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);*/
+  const inputsSelected = document.querySelectorAll(`input:checked`);
+  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
 }
 
 export function transitionGameTwo() {
@@ -87,18 +90,19 @@ export function transitionGameTwo() {
 
       let inputsSelected = document.querySelectorAll(`input:checked`);
       if (inputsSelected.length === 2) {
+          const time = document.querySelector('.game__timer').textContent;
 
           if(currentState.numberOfQuestions >= 9) {
-            checkTheAnswerOfTypeTwo(game, 1, currentState);
+            checkTheAnswerOfTypeTwo(game, 1, currentState, time);
             addElement(questionTwo, transitionGameThree);
           } else if (currentState.numberOfQuestions == 6) {
-            checkTheAnswerOfTypeTwo(game, 4, currentState);
+            checkTheAnswerOfTypeTwo(game, 4, currentState, time);
             addElement(questionFive, transitionGameThree);
           } else if (currentState.numberOfQuestions == 3){
-            checkTheAnswerOfTypeTwo(game, 7, currentState);
+            checkTheAnswerOfTypeTwo(game, 7, currentState, time);
             addElement(questionEight, transitionGameThree);
           } else {
-            checkTheAnswerOfTypeTwo(game, 10, currentState);
+            checkTheAnswerOfTypeTwo(game, 10, currentState, time);
             console.log(currentState);
             addElement(statsElement, transitionPrevPage);
           }

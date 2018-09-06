@@ -9,6 +9,8 @@ import headerGame from './header-game';
 import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
 
+import {analyzeTheSpeedOfAnswer} from './analyze-time';
+
 const stats = `<div class="stats">
       <ul class="stats">
         <li class="stats__result stats__result--wrong"></li>
@@ -54,9 +56,20 @@ export const questionEight = gameTwoElement(game[7]);
 
 export default gameTwoElement;
 
-const checkTheAnswerOfTypeOne = (data, numQuestion, gameState) => {
+const checkTheAnswerOfTypeOne = (data, numQuestion, gameState, time) => {
   const inputSelected = document.querySelector(`input:checked`);
-  (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);
+  /*if (inputSelected.value == data[numQuestion - 1].imgOne.answer) {
+    if (time < 10) {
+      gameState.userAnswers.push(`true-slow-answer`);
+    } else if (time > 20) {
+      gameState.userAnswers.push(`true-quick-answer`);
+    } else {
+      gameState.userAnswers.push(`true-answer`);
+    }
+  } else {
+    gameState.userAnswers.push(`false-answer`);
+  };*/
+  (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
 }
 
 export function transitionGameThree() {
@@ -68,14 +81,16 @@ export function transitionGameThree() {
   const inputs = document.querySelectorAll(`input`);
   inputs.forEach(function (input) {
     input.addEventListener(`change`, function () {
+      const time = document.querySelector('.game__timer').textContent;
+
       if(currentState.numberOfQuestions == 8) {
-        checkTheAnswerOfTypeOne(game, 2, currentState);
+        checkTheAnswerOfTypeOne(game, 2, currentState, time);
         addElement(questionThree, transitionStats);
       } else if(currentState.numberOfQuestions == 5) {
-        checkTheAnswerOfTypeOne(game, 5, currentState);
+        checkTheAnswerOfTypeOne(game, 5, currentState, time);
         addElement(questionSix, transitionStats);
       } else if(currentState.numberOfQuestions == 2) {
-        checkTheAnswerOfTypeOne(game, 8, currentState);
+        checkTheAnswerOfTypeOne(game, 8, currentState, time);
         addElement(questionNine, transitionStats);
       }
       input.checked = false;
