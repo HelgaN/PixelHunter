@@ -12,6 +12,7 @@ import {game, countQuestions, currentState} from './data/game.js';
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
 import {handlingAnInvalidResponse} from './invalid-response';
 import {updateLives} from './header-game';
+import {updateStats} from './stats-element';
 
 import statsElement from './stats';
 
@@ -68,8 +69,9 @@ const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState, time) => {/*
 export function transitionGameTwo() {
   transitionPrevPage();
   timer();
-  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement(currentState), transitionPrevPage);
   countQuestions(currentState);
+  updateStats(currentState);
   console.log(currentState);
 
   const inputs = document.querySelectorAll(`input`);
@@ -93,7 +95,8 @@ export function transitionGameTwo() {
           } else {
             checkTheAnswerOfTypeTwo(game, 10, currentState, time);
             console.log(currentState);
-            addElement(statsElement, transitionPrevPage);
+            addElement(statsElement(currentState), transitionPrevPage);
+            updateStats(currentState);
           }
           inputsSelected[0].checked = false;
           inputsSelected[1].checked = false;

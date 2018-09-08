@@ -1,5 +1,6 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import {Stats} from './data/game.js';
+import {updateStats} from './stats-element';
 
 const header = `<header class="header">
     <div class="header__back">
@@ -10,7 +11,7 @@ const header = `<header class="header">
     </div>
   </header>`;
 
-const statsElement = getElementFromTemplate(`
+const statsElement = (state) => getElementFromTemplate(`
   ${header}
   <div class="result">
     <h1>Победа!</h1>
@@ -19,16 +20,7 @@ const statsElement = getElementFromTemplate(`
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            <li class="stats__result stats__result--${Stats.WRONG}"></li>
-            <li class="stats__result stats__result--${Stats.SLOW}"></li>
-            <li class="stats__result stats__result--${Stats.FAST}"></li>
-            <li class="stats__result stats__result--${Stats.CORRECT}"></li>
-            <li class="stats__result stats__result--${Stats.WRONG}"></li>
-            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
-            <li class="stats__result stats__result--${Stats.SLOW}"></li>
-            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
-            <li class="stats__result stats__result--${Stats.FAST}"></li>
-            <li class="stats__result stats__result--${Stats.UNKNOWN}"></li>
+            ${new Array(10).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}            
           </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>

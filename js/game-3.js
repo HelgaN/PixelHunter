@@ -13,7 +13,9 @@ import {transitionGameTwo} from './game-1';
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
 import {handlingAnInvalidResponse} from './invalid-response';
 import {updateLives} from './header-game';
-
+import stats from './stats-element';
+import {updateStats} from './stats-element';
+/*
 const stats = `<div class="stats">
       <ul class="stats">
         <li class="stats__result stats__result--wrong"></li>
@@ -28,7 +30,7 @@ const stats = `<div class="stats">
         <li class="stats__result stats__result--unknown"></li>
       </ul>
     </div>`;
-
+*/
 const gameThreeState = (state) => `<p class="game__task">${state.title}<!--Найдите рисунок среди изображений--></p>
     <form class="game__content  game__content--triple">
     <!-- http://placehold.it/304x455-->
@@ -47,7 +49,7 @@ const gameThreeElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
     ${gameThreeState(state)}
-    ${stats}
+    ${stats(initialState)}
   </div>
 `);
 
@@ -75,8 +77,9 @@ const checkTheAnswerOfTypeThree = (evt, data, numQuestion, gameState, time) => {
 export function transitionStats() {
   transitionPrevPage();
   timer();
-  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement(currentState), transitionPrevPage);
   countQuestions(currentState);
+  updateStats(currentState);
   console.log(currentState);
 
   const imgs = document.querySelectorAll(`.game__option`);

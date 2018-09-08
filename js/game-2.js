@@ -13,7 +13,9 @@ import {analyzeTheSpeedOfAnswer} from './analyze-time';
 import {handlingAnInvalidResponse} from './invalid-response';
 import {updateLives} from './header-game';
 import statsElement from './stats';
-
+import stats from './stats-element';
+import {updateStats} from './stats-element';
+/*
 const stats = `<div class="stats">
       <ul class="stats">
         <li class="stats__result stats__result--wrong"></li>
@@ -27,7 +29,7 @@ const stats = `<div class="stats">
         <li class="stats__result stats__result--fast"></li>
         <li class="stats__result stats__result--unknown"></li>
       </ul>
-    </div>`;
+    </div>`;*/
 
 const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
     <form class="game__content  game__content--wide">
@@ -49,7 +51,7 @@ const gameTwoElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
     ${gameTwoState(state)}
-    ${stats}
+    ${stats(currentState)}
   </div>
 `);
 
@@ -78,8 +80,9 @@ const checkTheAnswerOfTypeOne = (data, numQuestion, gameState, time) => {
 export function transitionGameThree() {
   transitionPrevPage();
   timer();
-  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement(currentState), transitionPrevPage);
   countQuestions(currentState);
+  updateStats(currentState);
   console.log(currentState);
 
   const inputs = document.querySelectorAll(`input`);
