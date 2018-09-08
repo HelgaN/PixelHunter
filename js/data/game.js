@@ -94,18 +94,6 @@ export const game = Object.freeze([
   }
 ]);
 
-const initialState = Object.freeze({
-  level: game[0],
-  lives: 3,
-  time: 30,
-  numberOfQuestions: 10,
-  userAnswers: new Array()
-});
-
-export const currentState = Object.assign({}, initialState);
-
-export default initialState;
-
 export const Stats = {
   WRONG: `wrong`,
   SLOW: `slow`,
@@ -113,6 +101,20 @@ export const Stats = {
   CORRECT: `correct`,
   UNKNOWN: `unknown`
 }
+
+const initialState = Object.freeze({
+  level: game[0],
+  lives: 3,
+  time: 30,
+  numberOfQuestions: 0,
+  userAnswers: /*new Array()*/Array(10).fill(Stats.UNKNOWN)
+});
+
+export const currentState = Object.assign({}, initialState);
+
+export default initialState;
+
+
 
 /*
 export const game = Object.freeze({
@@ -144,7 +146,7 @@ export function setLives (game, lives) {
 }
 
 export function countQuestions (game) {
-  game.numberOfQuestions--;
+  game.numberOfQuestions++;
   return game;
 }
 

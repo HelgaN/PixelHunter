@@ -11,6 +11,8 @@ import {game, countQuestions, currentState} from './data/game.js';
 import {questionFour, questionSeven, questionTen} from './game-1';
 import {transitionGameTwo} from './game-1';
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
+import {handlingAnInvalidResponse} from './invalid-response';
+import {updateLives} from './header-game';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -62,17 +64,18 @@ const checkTheAnswerOfTypeThree = (evt, data, numQuestion, gameState, time) => {
   const indexImg = imgs.indexOf(srcImg);
 
   if(indexImg === 0) {
-    (data[numQuestion - 1].imgOne.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
+    (data[numQuestion - 1].imgOne.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
   } else if(indexImg === 1) {
-    (data[numQuestion - 1].imgTwo.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
+    (data[numQuestion - 1].imgTwo.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
   } else {
-    (data[numQuestion - 1].imgThree.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
+    (data[numQuestion - 1].imgThree.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
   }
 }
 
 export function transitionStats() {
   transitionPrevPage();
   timer();
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
   countQuestions(currentState);
   console.log(currentState);
 
@@ -82,13 +85,13 @@ export function transitionStats() {
     img.addEventListener(`click`, function (evt) {
       const time = document.querySelector('.game__timer').textContent;
       /*addElement(statsElement, transitionPrevPage);*/
-      if(currentState.numberOfQuestions == 7) {
+      if(currentState.numberOfQuestions == 3) {
         checkTheAnswerOfTypeThree(evt, game, 3, currentState, time);
         addElement(questionFour, transitionGameTwo);
-      } else if(currentState.numberOfQuestions == 4) {
+      } else if(currentState.numberOfQuestions == 6) {
         checkTheAnswerOfTypeThree(evt, game, 6, currentState, time);
         addElement(questionSeven, transitionGameTwo);
-      } else if(currentState.numberOfQuestions == 1) {
+      } else if(currentState.numberOfQuestions == 9) {
         checkTheAnswerOfTypeThree(evt, game, 9, currentState, time);
         addElement(questionTen, transitionGameTwo);
       }

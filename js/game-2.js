@@ -10,6 +10,9 @@ import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
 
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
+import {handlingAnInvalidResponse} from './invalid-response';
+import {updateLives} from './header-game';
+import statsElement from './stats';
 
 const stats = `<div class="stats">
       <ul class="stats">
@@ -69,12 +72,13 @@ const checkTheAnswerOfTypeOne = (data, numQuestion, gameState, time) => {
   } else {
     gameState.userAnswers.push(`false-answer`);
   };*/
-  (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
+  (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? analyzeTheSpeedOfAnswer(time) : handlingAnInvalidResponse()/*gameState.userAnswers.push(`false-answer`)*/;
 }
 
 export function transitionGameThree() {
   transitionPrevPage();
   timer();
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
   countQuestions(currentState);
   console.log(currentState);
 
@@ -83,13 +87,13 @@ export function transitionGameThree() {
     input.addEventListener(`change`, function () {
       const time = document.querySelector('.game__timer').textContent;
 
-      if(currentState.numberOfQuestions == 8) {
+      if(currentState.numberOfQuestions == 2) {
         checkTheAnswerOfTypeOne(game, 2, currentState, time);
         addElement(questionThree, transitionStats);
       } else if(currentState.numberOfQuestions == 5) {
         checkTheAnswerOfTypeOne(game, 5, currentState, time);
         addElement(questionSix, transitionStats);
-      } else if(currentState.numberOfQuestions == 2) {
+      } else if(currentState.numberOfQuestions == 8) {
         checkTheAnswerOfTypeOne(game, 8, currentState, time);
         addElement(questionNine, transitionStats);
       }

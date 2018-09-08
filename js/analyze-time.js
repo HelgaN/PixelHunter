@@ -1,10 +1,10 @@
-import {currentState} from './data/game.js'
+import {currentState} from './data/game.js';
 export function analyzeTheSpeedOfAnswer (time) {
   if (time < 10) {
-    currentState.userAnswers.push(`true-slow-answer`);
+    currentState.userAnswers[currentState.numberOfQuestions - 1]= `slow`;
   } else if (time > 20) {
-    currentState.userAnswers.push(`true-quick-answer`);
+    currentState.userAnswers[currentState.numberOfQuestions - 1] = `fast`;
   } else {
-    currentState.userAnswers.push(`true-answer`);
+    currentState.userAnswers[currentState.numberOfQuestions - 1] = `correct`;
   }
 }

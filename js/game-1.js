@@ -2,6 +2,7 @@ import getElementFromTemplate from './getElementFromTemplate';
 import addElement from './addElement';
 import {questionTwo, questionFive, questionEight} from './game-2';
 import {transitionGameThree} from './game-2';
+import stats from './stats-element';
 
 import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
@@ -9,23 +10,10 @@ import headerGame from './header-game';
 import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
+import {handlingAnInvalidResponse} from './invalid-response';
+import {updateLives} from './header-game';
 
 import statsElement from './stats';
-
-const stats = `<div class="stats">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </div>`;
 
 const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
     <form class="game__content">
@@ -59,7 +47,7 @@ const gameOneElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
     ${gameOneState(state/*game[`two-pic`]*/)}
-    ${stats}
+    ${stats(initialState)}
   </div>
 `);
 
@@ -74,12 +62,13 @@ const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState, time) => {/*
   const inputsSelected = document.querySelectorAll(`input:checked`);
   (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);*/
   const inputsSelected = document.querySelectorAll(`input:checked`);
-  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? analyzeTheSpeedOfAnswer(time) : gameState.userAnswers.push(`false-answer`);
+  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/ handlingAnInvalidResponse();
 }
 
 export function transitionGameTwo() {
   transitionPrevPage();
   timer();
+  (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement, transitionPrevPage);
   countQuestions(currentState);
   console.log(currentState);
 
@@ -92,13 +81,13 @@ export function transitionGameTwo() {
       if (inputsSelected.length === 2) {
           const time = document.querySelector('.game__timer').textContent;
 
-          if(currentState.numberOfQuestions >= 9) {
+          if(currentState.numberOfQuestions == 1) {
             checkTheAnswerOfTypeTwo(game, 1, currentState, time);
             addElement(questionTwo, transitionGameThree);
-          } else if (currentState.numberOfQuestions == 6) {
+          } else if (currentState.numberOfQuestions == 4) {
             checkTheAnswerOfTypeTwo(game, 4, currentState, time);
             addElement(questionFive, transitionGameThree);
-          } else if (currentState.numberOfQuestions == 3){
+          } else if (currentState.numberOfQuestions == 7){
             checkTheAnswerOfTypeTwo(game, 7, currentState, time);
             addElement(questionEight, transitionGameThree);
           } else {
