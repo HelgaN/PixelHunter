@@ -1,6 +1,8 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import {Stats} from './data/game.js';
 import {updateStats} from './stats-element';
+import {assessTheSuccess, calculateRightAnswers, calculateQuickAnswers, calculateQuickAnswersPoints, calculateLivesBonus, calculateLivesBonusPoints, calculateSlowAnswers, calculateSlowAnswersPoints, calculateTotalPoints} from './calculate-stats';
+import {currentState} from './data/game.js';
 
 const header = `<header class="header">
     <div class="header__back">
@@ -11,10 +13,43 @@ const header = `<header class="header">
     </div>
   </header>`;
 
+const victory = (state) => `<td class="result__points">×&nbsp;100</td>
+        <td class="result__total">${calculateRightAnswers(state)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за скорость:</td>
+        <td class="result__extra">${calculateQuickAnswers(state)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">×&nbsp;50</td>
+        <td class="result__total">${calculateQuickAnswersPoints(state)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">${calculateLivesBonus(state)}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">×&nbsp;50</td>
+        <td class="result__total">${calculateLivesBonusPoints(state)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Штраф за медлительность:</td>
+        <td class="result__extra">${calculateSlowAnswers(state)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">×&nbsp;50</td>
+        <td class="result__total">${calculateSlowAnswersPoints(state)}</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">${calculateTotalPoints(state)}</td>      
+`;
+
+const loss = `<td class="result__total"></td>
+  <td class="result__total  result__total--final">fail</td>`;
+
+
+
 const statsElement = (state) => getElementFromTemplate(`
   ${header}
   <div class="result">
-    <h1>Победа!</h1>
+    <h1>${assessTheSuccess(currentState)}</h1>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -23,33 +58,8 @@ const statsElement = (state) => getElementFromTemplate(`
             ${new Array(10).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}            
           </ul>
         </td>
-        <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">900</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">50</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">-100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
-      </tr>
+        ${(assessTheSuccess(currentState) == `Победа!`) ? victory(currentState) : loss} 
+       </tr>
     </table>
     <table class="result__table">
       <tr>
