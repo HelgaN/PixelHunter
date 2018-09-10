@@ -59,18 +59,18 @@ export const questionNine = gameThreeElement(game[8]);
 
 export default gameThreeElement;
 
-const checkTheAnswerOfTypeThree = (evt, data, numQuestion, gameState, time) => {
+const checkTheAnswerOfTypeThree = (evt, data, numQuestion, time, gameState) => {
   const img = evt.target.querySelector(`img`);
   const srcImg = img.src;
   const imgs = [data[numQuestion - 1].imgOne.src, data[numQuestion - 1].imgTwo.src, data[numQuestion - 1].imgThree.src];
   const indexImg = imgs.indexOf(srcImg);
 
   if(indexImg === 0) {
-    (data[numQuestion - 1].imgOne.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
+    (data[numQuestion - 1].imgOne.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = analyzeTheSpeedOfAnswer(time) : handlingAnInvalidResponse();
   } else if(indexImg === 1) {
-    (data[numQuestion - 1].imgTwo.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
+    (data[numQuestion - 1].imgTwo.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = analyzeTheSpeedOfAnswer(time) : handlingAnInvalidResponse();
   } else {
-    (data[numQuestion - 1].imgThree.answer === `paint`) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/handlingAnInvalidResponse();
+    (data[numQuestion - 1].imgThree.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = analyzeTheSpeedOfAnswer(time) : handlingAnInvalidResponse();
   }
 }
 
@@ -82,6 +82,27 @@ export function transitionStats() {
   updateStats(currentState);
   console.log(currentState);
 
+  let timerQ3;
+  let timerQ6;
+  let timerQ9;
+
+  if(currentState.numberOfQuestions == 3) {
+    timerQ3 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionFour, transitionGameTwo);
+    }, 31000);
+  } else if (currentState.numberOfQuestions == 6) {
+    timerQ6 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionSeven, transitionGameTwo);
+    }, 31000);
+  } else if (currentState.numberOfQuestions == 9){
+    timerQ9 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionTen, transitionGameTwo);
+    }, 31000);
+  }
+
   const imgs = document.querySelectorAll(`.game__option`);
 
   imgs.forEach(function (img) {
@@ -89,13 +110,16 @@ export function transitionStats() {
       const time = document.querySelector('.game__timer').textContent;
       /*addElement(statsElement, transitionPrevPage);*/
       if(currentState.numberOfQuestions == 3) {
-        checkTheAnswerOfTypeThree(evt, game, 3, currentState, time);
+        clearInterval(timerQ3);
+        checkTheAnswerOfTypeThree(evt, game, 3, time, currentState);
         addElement(questionFour, transitionGameTwo);
       } else if(currentState.numberOfQuestions == 6) {
-        checkTheAnswerOfTypeThree(evt, game, 6, currentState, time);
+        clearInterval(timerQ6);
+        checkTheAnswerOfTypeThree(evt, game, 6, time, currentState);
         addElement(questionSeven, transitionGameTwo);
       } else if(currentState.numberOfQuestions == 9) {
-        checkTheAnswerOfTypeThree(evt, game, 9, currentState, time);
+        clearInterval(timerQ9);
+        checkTheAnswerOfTypeThree(evt, game, 9, time, currentState);
         addElement(questionTen, transitionGameTwo);
       }
     });

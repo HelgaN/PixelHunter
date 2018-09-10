@@ -47,7 +47,7 @@ const gameOneState = (state) => `<p class="game__task">${state.title}<!--Уга�
 const gameOneElement = (state) => getElementFromTemplate(`
   ${headerGame(initialState)}
   <div class="game">
-    ${gameOneState(state/*game[`two-pic`]*/)}
+    ${gameOneState(state)}
     ${stats(initialState)}
   </div>
 `);
@@ -59,20 +59,46 @@ export const questionTen = gameOneElement(game[9]);
 
 export default gameOneElement;
 
-const checkTheAnswerOfTypeTwo = (data, numQuestion, gameState, time) => {/*
+const checkTheAnswerOfTypeTwo = (data, numQuestion, time, gameState) => {
   const inputsSelected = document.querySelectorAll(`input:checked`);
-  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? gameState.userAnswers.push(true) : gameState.userAnswers.push(false);*/
-  const inputsSelected = document.querySelectorAll(`input:checked`);
-  (inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer) ? analyzeTheSpeedOfAnswer(time) : /*gameState.userAnswers.push(`false-answer`)*/ handlingAnInvalidResponse();
+  ((inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer)) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = analyzeTheSpeedOfAnswer(time) : handlingAnInvalidResponse();
 }
 
 export function transitionGameTwo() {
   transitionPrevPage();
   timer();
+
   (currentState.lives > 0) ? updateLives(currentState) : addElement(statsElement(currentState), transitionPrevPage);
   countQuestions(currentState);
   updateStats(currentState);
   console.log(currentState);
+
+  let timerQ1;
+  let timerQ4;
+  let timerQ7;
+  let timerQ10;
+
+  if(currentState.numberOfQuestions == 1) {
+    timerQ1 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionTwo, transitionGameThree);
+    }, 31000);
+  } else if (currentState.numberOfQuestions == 4) {
+    timerQ4 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionFive, transitionGameThree);
+    }, 31000);
+  } else if (currentState.numberOfQuestions == 7){
+    timerQ7 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(questionEight, transitionGameThree);
+    }, 31000);
+  } else {
+    timerQ10 = setTimeout(function () {
+      handlingAnInvalidResponse();
+      addElement(statsElement(currentState), transitionPrevPage);
+    }, 31000);
+  }
 
   const inputs = document.querySelectorAll(`input`);
 
@@ -84,16 +110,20 @@ export function transitionGameTwo() {
           const time = document.querySelector('.game__timer').textContent;
 
           if(currentState.numberOfQuestions == 1) {
-            checkTheAnswerOfTypeTwo(game, 1, currentState, time);
+            clearInterval(timerQ1);
+            checkTheAnswerOfTypeTwo(game, 1, time, currentState);
             addElement(questionTwo, transitionGameThree);
           } else if (currentState.numberOfQuestions == 4) {
-            checkTheAnswerOfTypeTwo(game, 4, currentState, time);
+            clearInterval(timerQ4);
+            checkTheAnswerOfTypeTwo(game, 4, time, currentState);
             addElement(questionFive, transitionGameThree);
           } else if (currentState.numberOfQuestions == 7){
-            checkTheAnswerOfTypeTwo(game, 7, currentState, time);
+            clearInterval(timerQ7);
+            checkTheAnswerOfTypeTwo(game, 7, time, currentState);
             addElement(questionEight, transitionGameThree);
           } else {
-            checkTheAnswerOfTypeTwo(game, 10, currentState, time);
+            clearInterval(timerQ10);
+            checkTheAnswerOfTypeTwo(game, 10, time, currentState);
             console.log(currentState);
             addElement(statsElement(currentState), transitionPrevPage);
             updateStats(currentState);
