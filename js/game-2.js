@@ -78,17 +78,17 @@ export function transitionGameThree() {
   let timerQ5;
   let timerQ8;
 
-  if(currentState.numberOfQuestions == 2) {
+  if(currentState.numberOfQuestions == 2 && currentState.lives !== 0) {
     timerQ2 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionThree, transitionStats);
     }, 31000);
-  } else if (currentState.numberOfQuestions == 5) {
+  } else if (currentState.numberOfQuestions == 5 && currentState.lives !== 0) {
     timerQ5 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionSix, transitionStats);
     }, 31000);
-  } else if (currentState.numberOfQuestions == 8){
+  } else if (currentState.numberOfQuestions == 8 && currentState.lives !== 0){
     timerQ8 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionNine, transitionStats);

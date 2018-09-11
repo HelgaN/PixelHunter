@@ -78,22 +78,22 @@ export function transitionGameTwo() {
   let timerQ7;
   let timerQ10;
 
-  if(currentState.numberOfQuestions == 1) {
+  if(currentState.numberOfQuestions == 1 && currentState.lives !== 0) {
     timerQ1 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionTwo, transitionGameThree);
     }, 31000);
-  } else if (currentState.numberOfQuestions == 4) {
+  } else if (currentState.numberOfQuestions == 4 && currentState.lives !== 0) {
     timerQ4 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionFive, transitionGameThree);
     }, 31000);
-  } else if (currentState.numberOfQuestions == 7){
+  } else if (currentState.numberOfQuestions == 7 && currentState.lives !== 0){
     timerQ7 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(questionEight, transitionGameThree);
     }, 31000);
-  } else {
+  } else if (currentState.numberOfQuestions == 10 && currentState.lives !== 0) {
     timerQ10 = setTimeout(function () {
       handlingAnInvalidResponse();
       addElement(statsElement(currentState), transitionPrevPage);
