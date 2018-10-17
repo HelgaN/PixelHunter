@@ -1,7 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
-import addElement from './addElement';
-import rulesElement from './rules';
-import {transitionGameOne} from './rules';
+import {getElementFromTemplate} from './../util';
 
 const logo = `<img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter">`;
 
@@ -24,10 +21,5 @@ const greetingElement = getElementFromTemplate(`
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
 `);
-
-export function transitionGo() {
-  const button = document.querySelector(`.greeting__continue`);
-  button.onclick = () => addElement(rulesElement, transitionGameOne);
-}
 
 export default greetingElement;

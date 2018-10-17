@@ -310,8 +310,6 @@ export const currentState = Object.assign({}, initialState);
 
 export default initialState;
 
-
-
 /*
 export const game = Object.freeze({
   'two-pic': {

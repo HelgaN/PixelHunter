@@ -1,10 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
-import addElement from './addElement';
-import {questionOne} from './game-1';
-import {transitionGameTwo} from './game-1';
-
-import {transitionPrevPage} from './prevPage';
-import {game} from './data/game.js';
+import {getElementFromTemplate} from './../util';
 
 const header = `  <header class="header">
     <div class="header__back">
@@ -41,25 +35,3 @@ const rulesElement = getElementFromTemplate(`
 `);
 
 export default rulesElement;
-
-const inputChange = (input, button) => {
-  if (input.value !== ``) {
-    button.disabled = false;
-    button.onclick = () => addElement(questionOne, transitionGameTwo);
-  } else {
-    button.disabled = true;
-  }
-};
-
-export function transitionGameOne() {
-  transitionPrevPage();
-  const input = document.querySelector(`.rules__input`);
-  const button = document.querySelector(`.rules__button`);
-  input.onchange = () => inputChange(input, button);
-}
-
-
-
-
-
-

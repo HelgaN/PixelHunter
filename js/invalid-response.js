@@ -1,6 +1,6 @@
 import {currentState} from './data/game.js';
 import {transitionPrevPage} from './prevPage';
-import addElement from './addElement';
+import addElement from './util';
 import statsElement from './stats';
 
 export function handlingAnInvalidResponse() {

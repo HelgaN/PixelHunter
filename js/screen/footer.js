@@ -1,4 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
+import {getElementFromTemplate} from './../util';
 
 const footerElement = getElementFromTemplate(`
  <footer class="footer">
@@ -12,8 +12,8 @@ const footerElement = getElementFromTemplate(`
     </div>
   </footer>
 `);
-
+/*
 const body = document.querySelector(`body`);
-body.appendChild(footerElement);
+body.appendChild(footerElement);*/
 
 export default footerElement;

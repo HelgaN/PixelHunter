@@ -1,7 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
-import addElement from './addElement';
-import greetingElement from './greeting';
-import {transitionGo} from './greeting';
+import {getElementFromTemplate} from './../util';
 
 const introElement = getElementFromTemplate(`
   <div id="main" class="central__content">
@@ -13,10 +10,3 @@ const introElement = getElementFromTemplate(`
 `);
 
 export default introElement;
-
-export function transitionRules() {
-  const button = document.querySelector(`.intro__asterisk`);
-  button.onclick = () => {
-    addElement(greetingElement, transitionGo);
-  };
-}

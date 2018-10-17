@@ -1,5 +1,5 @@
-import addElement from './addElement';
-import introElement from './intro';
-import {transitionRules} from './intro';
+import Application from './app';
 
-addElement(introElement, transitionRules);
+/*addElement(introElement, transitionRules);*/
+
+Application.showIntro();

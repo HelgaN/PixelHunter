@@ -1,4 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
+import {getElementFromTemplate} from './util';
 import {Stats} from './data/game.js';
 import {updateStats} from './stats-element';
 import {assessTheSuccess, calculateRightAnswers, calculateQuickAnswers, calculateQuickAnswersPoints, calculateLivesBonus, calculateLivesBonusPoints, calculateSlowAnswers, calculateSlowAnswersPoints, calculateTotalPoints} from './calculate-stats';
@@ -38,7 +38,7 @@ const victory = (state) => `<td class="result__points">×&nbsp;100</td>
         <td class="result__total">${calculateSlowAnswersPoints(state)}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${calculateTotalPoints(state)}</td>      
+        <td colspan="5" class="result__total  result__total--final">${calculateTotalPoints(state)}</td>
 `;
 
 const loss = `<td class="result__total"></td>
@@ -55,10 +55,10 @@ const statsElement = (state) => getElementFromTemplate(`
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${new Array(10).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}            
+            ${new Array(10).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
           </ul>
         </td>
-        ${(assessTheSuccess(currentState) == `Победа!`) ? victory(currentState) : loss} 
+        ${(assessTheSuccess(currentState) == `Победа!`) ? victory(currentState) : loss}
        </tr>
     </table>
     <table class="result__table">

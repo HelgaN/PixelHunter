@@ -1,5 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
-import addElement from './addElement';
+import {addElement, getElementFromTemplate} from './util';
 import statsElement from './stats';
 
 import {transitionPrevPage} from './prevPage';

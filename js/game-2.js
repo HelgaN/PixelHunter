@@ -1,5 +1,4 @@
-import getElementFromTemplate from './getElementFromTemplate';
-import addElement from './addElement';
+import {addElement, getElementFromTemplate} from './util';
 import {questionThree, questionSix, questionNine} from './game-3';
 import {transitionStats} from './game-3';
 
@@ -117,4 +116,3 @@ export function transitionGameThree() {
     });
   });
 }
-
