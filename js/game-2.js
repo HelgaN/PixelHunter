@@ -1,10 +1,10 @@
 import {addElement, getElementFromTemplate} from './util';
-import {questionThree, questionSix, questionNine} from './game-3';
+import {questionThree, questionSix, questionNine} from './screen/game-3-screen';
 import {transitionStats} from './game-3';
 
 import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
-import headerGame from './header-game';
+import headerGame from './screen/header';
 import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
 
@@ -12,8 +12,9 @@ import {analyzeTheSpeedOfAnswer} from './analyze-time';
 import {handlingAnInvalidResponse} from './invalid-response';
 import {updateLives} from './header-game';
 import statsElement from './stats';
-import stats from './stats-element';
-import {updateStats} from './stats-element';
+import {updateStats, stats} from './stats-element';
+import {questionTwo, questionFive, questionEight} from './screen/game-2-screen';
+
 /*
 const stats = `<div class="stats">
       <ul class="stats">
@@ -29,36 +30,6 @@ const stats = `<div class="stats">
         <li class="stats__result stats__result--unknown"></li>
       </ul>
     </div>`;*/
-
-const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
-    <form class="game__content  game__content--wide">
-      <div class="game__option">
-      <!-- http://placehold.it/705x455-->
-        <img src="${state.imgOne.src}" alt="Option 1" width="705" height="455">
-        <label class="game__answer  game__answer--photo">
-          <input name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--wide  game__answer--paint">
-          <input name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-    </form>`;
-
-const gameTwoElement = (state) => getElementFromTemplate(`
-  ${headerGame(initialState)}
-  <div class="game">
-    ${gameTwoState(state)}
-    ${stats(currentState)}
-  </div>
-`);
-
-export const questionTwo = gameTwoElement(game[1]);
-export const questionFive = gameTwoElement(game[4]);
-export const questionEight = gameTwoElement(game[7]);
-
-export default gameTwoElement;
 
 const checkTheAnswerOfTypeOne = (data, numQuestion, time, gameState) => {
   const inputSelected = document.querySelector(`input:checked`);

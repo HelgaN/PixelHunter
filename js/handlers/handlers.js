@@ -3,8 +3,9 @@ import greetingElement from './../screen/greeting-screen';
 import rulesElement from './../screen/rules-screen';
 
 import {transitionPrevPage} from './../prevPage';
-import {questionOne} from './../game-1';
+import {questionOne} from './../screen/game-1-screen';
 import {transitionGameTwo} from './../game-1';
+
 
 // intro - greeting
 
