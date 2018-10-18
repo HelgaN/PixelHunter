@@ -3,17 +3,18 @@ import statsElement from './stats';
 
 import {transitionPrevPage} from './prevPage';
 import {timer} from './timer.js';
-import headerGame from './header-game';
+import headerGame from './screen/header';
 import initialState from './data/game.js';
 import {game, countQuestions, currentState} from './data/game.js';
 
-import {questionFour, questionSeven, questionTen} from './game-1';
+import {questionFour, questionSeven, questionTen} from './screen/game-1-screen';
 import {transitionGameTwo} from './game-1';
 import {analyzeTheSpeedOfAnswer} from './analyze-time';
 import {handlingAnInvalidResponse} from './invalid-response';
 import {updateLives} from './header-game';
-import stats from './stats-element';
 import {updateStats} from './stats-element';
+import stats from './stats-element';
+import {questionThree, questionSix, questionNine} from './screen/game-3-screen';
 /*
 const stats = `<div class="stats">
       <ul class="stats">
@@ -30,33 +31,6 @@ const stats = `<div class="stats">
       </ul>
     </div>`;
 */
-const gameThreeState = (state) => `<p class="game__task">${state.title}<!--Найдите рисунок среди изображений--></p>
-    <form class="game__content  game__content--triple">
-    <!-- http://placehold.it/304x455-->
-      <div class="game__option">
-        <img src="${state.imgOne.src}" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="${state.imgTwo.src}" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="${state.imgThree.src}" alt="Option 1" width="304" height="455">
-      </div>
-    </form>`;
-
-const gameThreeElement = (state) => getElementFromTemplate(`
-  ${headerGame(initialState)}
-  <div class="game">
-    ${gameThreeState(state)}
-    ${stats(initialState)}
-  </div>
-`);
-
-export const questionThree = gameThreeElement(game[2]);
-export const questionSix = gameThreeElement(game[5]);
-export const questionNine = gameThreeElement(game[8]);
-
-export default gameThreeElement;
 
 const checkTheAnswerOfTypeThree = (evt, data, numQuestion, time, gameState) => {
   const img = evt.target.querySelector(`img`);
