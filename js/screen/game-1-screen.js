@@ -41,7 +41,6 @@ const gameOneElement = (state) => getElementFromTemplate(`
 `);
 
 /*export default gameOneElement;*/
-
 const questionOne = gameOneElement(game[0]);
 const questionFour = gameOneElement(game[3]);
 const questionSeven = gameOneElement(game[6]);
