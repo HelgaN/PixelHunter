@@ -1,4 +1,5 @@
-import {addElement} from './util';
+import {addElement} from './../util';
+import {currentState, game, Stats} from './../data/game';
 
 export default class GamePresenter {
   constructor(state) {
@@ -39,6 +40,111 @@ export default class GamePresenter {
       return `correct`;
     }
   }
+
+  updateStats (state) {
+    const elements = document.querySelectorAll(`.stats__result`);
+    elements.forEach(function (el, i) {
+      el.classList.remove(`stats__result--unknown`);
+      el.classList.add(`stats__result--${state.userAnswers[i]}`);
+    });
+  };
+
+  handlingAnInvalidResponse() {
+    currentState.userAnswers[currentState.numberOfQuestions - 1] = `wrong`;
+    (currentState.lives > 0) ? currentState.lives -= 1 : currentState.lives;
+    return currentState.lives;
+  };
+
+  checkTheAnswerOfTypeTwo (data, numQuestion, time, gameState) {
+    const inputsSelected = document.querySelectorAll(`input:checked`);
+    ((inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer)) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+  }
+
+  checkTheAnswerOfTypeOne (data, numQuestion, time, gameState) {
+    const inputSelected = document.querySelector(`input:checked`);
+    (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+  }
+
+  checkTheAnswerOfTypeThree (evt, data, numQuestion, time, gameState) {
+    const img = evt.target.querySelector(`img`);
+    const srcImg = img.src;
+    const imgs = [data[numQuestion - 1].imgOne.src, data[numQuestion - 1].imgTwo.src, data[numQuestion - 1].imgThree.src];
+    const indexImg = imgs.indexOf(srcImg);
+
+    if(indexImg === 0) {
+      (data[numQuestion - 1].imgOne.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    } else if(indexImg === 1) {
+      (data[numQuestion - 1].imgTwo.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    } else {
+      (data[numQuestion - 1].imgThree.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    }
+  }
+
+  assessTheSuccess (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer !== `unknown` && state.lives != 0) return answer;
+    });
+    let result;
+    if (userAnswers.length == state.userAnswers.length) {
+      return result = `Победа!`;
+    }
+
+    return result = `Поражение!`;
+  }
+
+  calculateRightAnswers (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer !== `unknown` && answer !== `wrong`) return answer;
+    });
+    return userAnswers.length * 100;
+  }
+
+  calculateQuickAnswers (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer === `fast`) return answer;
+    });
+    return userAnswers.length;
+  }
+
+  calculateQuickAnswersPoints (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer === `fast`) return answer;
+    });
+    return userAnswers.length * 50;
+  }
+
+  calculateLivesBonus (state) {
+    return state.lives;
+  }
+
+  calculateLivesBonusPoints (state) {
+    return state.lives * 50;
+  }
+
+  calculateSlowAnswers (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer === `slow`) return answer;
+    });
+    return userAnswers.length;
+  }
+
+  calculateSlowAnswersPoints (state) {
+    const userAnswers = (state.userAnswers).filter((answer) => {
+      if(answer === `slow`) return answer;
+    });
+    return userAnswers.length * (-50);
+  }
+
+  calculateTotalPoints (state) {
+    const right = this.calculateRightAnswers(state);
+    const quick = this.calculateQuickAnswersPoints(state);
+    const live = this.calculateLivesBonusPoints(state);
+    const slow = this.calculateSlowAnswersPoints(state);
+
+    return right + quick + live + slow;
+  }
+
+
   /*Конструктор должен принимать состояние игры state
 
    Конструктор должен создавать и управлять представлением игры GameView
@@ -50,12 +156,12 @@ export default class GamePresenter {
     throw new Error(`You have to define template for view`);
   }
 
-  get newScreen() {
+  get newScreenHandler() {
     throw new Error(`You must pass the function to the next screen`)
   }
 
   GameView() {
-    return addElement(this.template, this.newScreen);
+    return addElement(this.template, this.newScreenHandler);
   }
 
   get element() {

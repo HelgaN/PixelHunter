@@ -1,4 +1,4 @@
-import stats from './../stats-element';
+import stats from './stats-game';
 import headerGame from './header';
 import initialState from './../data/game';
 import {game, currentState} from './../data/game';

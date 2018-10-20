@@ -12,8 +12,5 @@ const footerElement = getElementFromTemplate(`
     </div>
   </footer>
 `);
-/*
-const body = document.querySelector(`body`);
-body.appendChild(footerElement);*/
 
 export default footerElement;

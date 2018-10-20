@@ -306,7 +306,7 @@ const initialState = Object.freeze({
   userAnswers: Array(10).fill(Stats.UNKNOWN)
 });
 
-export const currentState = Object.assign({}, initialState);
+export let currentState = Object.assign({}, initialState);
 
 export default initialState;
 
@@ -343,7 +343,3 @@ export function countQuestions (game) {
   game.numberOfQuestions++;
   return game;
 }
-
-
-
-

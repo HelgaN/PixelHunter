@@ -1,8 +1,8 @@
-import {getElementFromTemplate} from './util';
-import {Stats} from './data/game.js';
-import {updateStats} from './stats-element';
-import {assessTheSuccess, calculateRightAnswers, calculateQuickAnswers, calculateQuickAnswersPoints, calculateLivesBonus, calculateLivesBonusPoints, calculateSlowAnswers, calculateSlowAnswersPoints, calculateTotalPoints} from './calculate-stats';
-import {currentState} from './data/game.js';
+import {getElementFromTemplate} from './../util';
+import GamePresenter from './../game/game';
+import currentState from './../data/game';
+
+const presenter = new GamePresenter(currentState);
 
 const header = `<header class="header">
     <div class="header__back">
@@ -14,31 +14,31 @@ const header = `<header class="header">
   </header>`;
 
 const victory = (state) => `<td class="result__points">×&nbsp;100</td>
-        <td class="result__total">${calculateRightAnswers(state)}</td>
+        <td class="result__total">${presenter.calculateRightAnswers(state)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">${calculateQuickAnswers(state)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__extra">${presenter.calculateQuickAnswers(state)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${calculateQuickAnswersPoints(state)}</td>
+        <td class="result__total">${presenter.calculateQuickAnswersPoints(state)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">${calculateLivesBonus(state)}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">${presenter.calculateLivesBonus(state)}&nbsp;<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${calculateLivesBonusPoints(state)}</td>
+        <td class="result__total">${presenter.calculateLivesBonusPoints(state)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">${calculateSlowAnswers(state)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__extra">${presenter.calculateSlowAnswers(state)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${calculateSlowAnswersPoints(state)}</td>
+        <td class="result__total">${presenter.calculateSlowAnswersPoints(state)}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${calculateTotalPoints(state)}</td>
+        <td colspan="5" class="result__total  result__total--final">${presenter.calculateTotalPoints(state)}</td>
 `;
 
 const loss = `<td class="result__total"></td>
@@ -49,7 +49,7 @@ const loss = `<td class="result__total"></td>
 const statsElement = (state) => getElementFromTemplate(`
   ${header}
   <div class="result">
-    <h1>${assessTheSuccess(currentState)}</h1>
+    <h1>${presenter.assessTheSuccess(state)}</h1>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -58,7 +58,7 @@ const statsElement = (state) => getElementFromTemplate(`
             ${new Array(10).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
           </ul>
         </td>
-        ${(assessTheSuccess(currentState) == `Победа!`) ? victory(currentState) : loss}
+        ${(presenter.assessTheSuccess(state) == `Победа!`) ? victory(state) : loss}
        </tr>
     </table>
     <table class="result__table">
