@@ -156,12 +156,12 @@ export default class GamePresenter {
     throw new Error(`You have to define template for view`);
   }
 
-  get newScreenHandler() {
-    throw new Error(`You must pass the function to the next screen`)
+  GameView() {
+    return addElement(this.template);
   }
 
-  GameView() {
-    return addElement(this.template, this.newScreenHandler);
+  newScreenHandler() {
+
   }
 
   get element() {
@@ -171,6 +171,8 @@ export default class GamePresenter {
     }
     return this._element;
   }
+
+
 
 
 }

@@ -7,17 +7,53 @@ import {transitionRules, transitionGo, transitionPrevPage} from './handlers/hand
 import {currentState} from './data/game';
 import statsElement from './screen/stats-screen';
 
-export default class Application {
-  static showWelcom() {
-    addElement(introElement, transitionRules);
-    document.body.appendChild(footerElement);
+import Welcome from './welcome/welcome';
+
+const ControllerID = {
+  WELCOME: ``,
+  GREETING: `greeting`,
+  GAME: `game`,
+  STATS: `stats`
+};
+
+const getControllerIDFromHash = (hash) => hash.replace(`#`, ``);
+
+class Application {
+  constructor() {
+    this.routes = {
+      [ControllerID.WELCOME]: Welcome,
+      /*[ControllerID.GREETING]: Greeting,*/
+      [ControllerID.GAME]: /*ShowGame*/``
+   }
+
+  window.onhashchange = () => {
+    this.changeController()
+     getControllerIDFromHash(location.hash);
+   }
   }
-/*
-  static showGreeting() {
+
+  changeController(route = ``) {
+    const Controller = this.routes[route];
+    new Controller().init();
+  }
+
+  init() {
+    this.changeController(getControllerIDFromHash(location.hash));
+  }
+
+  showWelcome() {
+    location.hash = ControllerID.WELCOME;
+
+    /*addElement(introElement, transitionRules);
+    document.body.appendChild(footerElement);*/
+  }
+
+  showGreeting() {
+    location.hash = ControllerID.GREETING;
   //  addElement(greetingElement, transitionGo);
   //  greetingElement.init();
   }
-
+/*
   static showRules() {
     //rulesElement.init();
     //addElement(rulesElement, transitionGameOne);
@@ -34,3 +70,8 @@ export default class Application {
   }
 
 }
+
+const application = new Application();
+application.init();
+
+export default application;

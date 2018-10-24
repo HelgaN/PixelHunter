@@ -1,5 +1,5 @@
-import Application from './app';
+import application from './app';
 
 /*addElement(introElement, transitionRules);*/
 
-Application.showWelcom();
+/*application();*/
