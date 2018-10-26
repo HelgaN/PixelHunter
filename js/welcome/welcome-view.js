@@ -1,5 +1,6 @@
 import GamePresenter from './../game/game';
 import {getElementFromTemplate} from './../util';
+import application from './../app';
 
 export default class WelcomeView extends GamePresenter {
   get template() {

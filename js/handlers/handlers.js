@@ -13,21 +13,21 @@ import Application from './../app';
 
 
 // intro - greeting
-
+/*
 export function transitionRules() {
   const button = document.querySelector(`.intro__asterisk`);
   button.onclick = () => {
     addElement(greetingElement, transitionGo);
   };
 };
-
+*/
 // greeting - rules
-
+/*
 export function transitionGo() {
   const button = document.querySelector(`.greeting__continue`);
   button.onclick = () => addElement(rulesElement, transitionGameOne);
 };
-
+*/
 // prevPage
 
 export function transitionPrevPage() {

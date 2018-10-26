@@ -8,10 +8,13 @@ import {currentState} from './data/game';
 import statsElement from './screen/stats-screen';
 
 import Welcome from './welcome/welcome';
+import Greeting from './greeting/greeting';
+import Rules from './rules/rules';
 
 const ControllerID = {
   WELCOME: ``,
   GREETING: `greeting`,
+  RULES: `rules`,
   GAME: `game`,
   STATS: `stats`
 };
@@ -22,13 +25,13 @@ class Application {
   constructor() {
     this.routes = {
       [ControllerID.WELCOME]: Welcome,
-      /*[ControllerID.GREETING]: Greeting,*/
+      [ControllerID.GREETING]: Greeting,
+      [ControllerID.RULES]: Rules,
       [ControllerID.GAME]: /*ShowGame*/``
-   }
+    }
 
   window.onhashchange = () => {
-    this.changeController()
-     getControllerIDFromHash(location.hash);
+    this.changeController(getControllerIDFromHash(location.hash));
    }
   }
 
@@ -53,15 +56,17 @@ class Application {
   //  addElement(greetingElement, transitionGo);
   //  greetingElement.init();
   }
-/*
-  static showRules() {
+
+  showRules() {
+    location.hash = ControllerID.RULES;
     //rulesElement.init();
     //addElement(rulesElement, transitionGameOne);
   }
-*/
-  static showGame() {
+
+  showGame() {
+    location.hash = ControllerID.GAME;
     //newGameScreen.init();
-    addElement(greetingElement, transitionGo);
+    //addElement(greetingElement, transitionGo);
   }
 
   static showStats(state) {

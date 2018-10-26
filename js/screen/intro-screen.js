@@ -1,3 +1,4 @@
+/*
 import {getElementFromTemplate} from './../util';
 
 const introElement = getElementFromTemplate(`
@@ -10,3 +11,4 @@ const introElement = getElementFromTemplate(`
 `);
 
 export default introElement;
+*/
