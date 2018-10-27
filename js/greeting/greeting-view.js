@@ -1,5 +1,4 @@
 import GamePresenter from './../game/game';
-import {getElementFromTemplate} from './../util';
 
 const logo = `<img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter">`;
 
@@ -25,10 +24,6 @@ export default class GreetingView extends GamePresenter {
       </div>
    `;
    return greeting;
-  }
-
-  getTemplate() {
-    return getElementFromTemplate(this.template);
   }
 
   newScreenHandler() {

@@ -1,5 +1,4 @@
 import GamePresenter from './../game/game';
-import {getElementFromTemplate} from './../util';
 import application from './../app';
 
 export default class WelcomeView extends GamePresenter {
@@ -10,10 +9,6 @@ export default class WelcomeView extends GamePresenter {
           <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
         </div>
       </div>`.trim();
-  }
-
-  getTemplate() {
-    return getElementFromTemplate(this.template);
   }
 
   newScreenHandler() {

@@ -1,5 +1,4 @@
 import GamePresenter from './../game/game';
-import {getElementFromTemplate} from './../util';
 
 const header = `  <header class="header">
     <div class="header__back">
@@ -39,13 +38,20 @@ export default class RulesView extends GamePresenter {
     return rules;
   }
 
-  getTemplate() {
-    return getElementFromTemplate(this.template);
-  }
-
   newScreenHandler() {
-    const button = document.querySelector(`.greeting__continue`);
-    button.onclick = () => this.onStart();
+    const inputChange = (input, button) => {
+      if (input.value !== ``) {
+        button.disabled = false;
+        button.onclick = () => this.onStart();
+      } else {
+        button.disabled = true;
+      }
+    };
+
+      this.transitionPrevPage();
+      const input = document.querySelector(`.rules__input`);
+      const button = document.querySelector(`.rules__button`);
+      input.onchange = () => inputChange(input, button);
   }
 
   onStart() {

@@ -1,9 +1,19 @@
 import {addElement} from './../util';
 import {currentState, game, Stats} from './../data/game';
+import {getElementFromTemplate} from './../util';
+import Application from './../app';
 
 export default class GamePresenter {
   constructor(state) {
     this.state = state;
+  }
+
+  transitionPrevPage() {
+    const backButton = document.querySelector(`.back`);
+
+    backButton.onclick = () => {
+      Application.showGreeting();
+    };
   }
 
   updateLives() {   // header-game
@@ -156,8 +166,8 @@ export default class GamePresenter {
     throw new Error(`You have to define template for view`);
   }
 
-  GameView() {
-    return addElement(this.template);
+  getTemplate() {
+    return getElementFromTemplate(this.template);
   }
 
   newScreenHandler() {
