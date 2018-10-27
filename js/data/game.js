@@ -227,6 +227,12 @@ const Questions3ph = [
 
 let rand1 = Math.floor(Math.random() * Questions1.length);
 
+export const types = {
+  TWO: 'two-pic',
+  ONE: 'one-pic',
+  THREE: 'three-pic'
+}
+
 export const game = Object.freeze([
   {
     type: 'two-pic',

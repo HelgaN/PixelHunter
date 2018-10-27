@@ -4,9 +4,9 @@ import {getElementFromTemplate} from './../util';
 import Application from './../app';
 
 export default class GamePresenter {
-  constructor(state) {
+/*  constructor(state) {
     this.state = state;
-  }
+  }*/
 
   transitionPrevPage() {
     const backButton = document.querySelector(`.back`);

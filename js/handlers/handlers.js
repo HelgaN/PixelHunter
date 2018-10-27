@@ -41,7 +41,7 @@ export function transitionPrevPage() {
 
 // rules - game
 // started some kind of hell !!
-
+/*
 const inputChange = (input, button) => {
   if (input.value !== ``) {
     button.disabled = false;
@@ -56,7 +56,7 @@ const transitionGameOne = () => {
   const input = document.querySelector(`.rules__input`);
   const button = document.querySelector(`.rules__button`);
   input.onchange = () => inputChange(input, button);
-}
+}*/
 
 const transitionGameTwo = () => {
   transitionPrevPage();

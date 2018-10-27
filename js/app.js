@@ -10,6 +10,7 @@ import statsElement from './screen/stats-screen';
 import Welcome from './welcome/welcome';
 import Greeting from './greeting/greeting';
 import Rules from './rules/rules';
+import Level from './level/level';
 
 const ControllerID = {
   WELCOME: ``,
@@ -27,7 +28,7 @@ class Application {
       [ControllerID.WELCOME]: Welcome,
       [ControllerID.GREETING]: Greeting,
       [ControllerID.RULES]: Rules,
-      [ControllerID.GAME]: /*ShowGame*/``
+      [ControllerID.GAME]: Level
     }
 
   window.onhashchange = () => {
