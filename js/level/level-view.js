@@ -15,7 +15,7 @@ const headerGame = (state) => `<header class="header">
     </div>
   </header>`;
 
-const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
+const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
     <form class="game__content">
       <div class="game__option">
       <!--http://placehold.it/468x458 -->
@@ -43,7 +43,7 @@ const gameOneState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
     </form>`;
 
-const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
+const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
       <!-- http://placehold.it/705x455-->
@@ -86,17 +86,18 @@ export default class LevelView extends GamePresenter {
   }
 
   get template() {
-    let thisLevelType = this.state.level.type;
-    let levelType;
     let question = game[this.state.numberOfQuestions];
+    let thisLevelType = question.type;
+    let levelType;
+
     switch (thisLevelType) {
-      case types.TWO:
+      case types.ONE:
         levelType = gameOneState(question);
         break;
       case types.TWO:
         levelType = gameTwoState(question);
         break;
-      case types.TWO:
+      case types.THREE:
         levelType = gameThreeState(question);
         break;
       default:
@@ -110,19 +111,42 @@ export default class LevelView extends GamePresenter {
    return level;
   }
 
-  newScreenHandler() {
+  get handler() {
+    let question = game[this.state.numberOfQuestions];
+    let thisLevelType = question.type;
+    console.log(thisLevelType);
+    let handler;
+
+    switch (thisLevelType) {
+      case types.ONE:
+        handler = this.newScreenHandlerTypeOne;
+        break;
+      case types.TWO:
+        handler = this.newScreenHandlerTypeTwo;
+        break;
+      case types.THREE:
+
+        break;
+      default:
+      }
+   return handler;
+  }
+
+  newScreenHandlerTypeTwo() {
     this.transitionPrevPage();
     let timer = this.timer();
+    const setNextLevel = this.countQuestions;
 
     const inputs = document.querySelectorAll(`input`);
 
-    inputs.forEach(function (input) {
-      input.addEventListener(`change`, function () {
+    inputs.forEach((input) => {
+      input.addEventListener(`change`, () => {
         let inputsSelected = document.querySelectorAll(`input:checked`);
         if (inputsSelected.length === 2) {
           const time = document.querySelector('.game__timer').textContent;
           clearInterval(timer);
         /*presenter.checkTheAnswerOfTypeTwo(game, 1, time, currentState);*/
+          setNextLevel(currentState);
           this.onStart();
           inputsSelected[0].checked = false;
           inputsSelected[1].checked = false;
@@ -130,6 +154,23 @@ export default class LevelView extends GamePresenter {
       });
     });
 }
+
+newScreenHandlerTypeOne() {
+  this.transitionPrevPage();
+  let timer = this.timer();
+  const setNextLevel = this.countQuestions;
+
+  const inputs = document.querySelectorAll(`input`);
+  inputs.forEach((input) => {
+    input.addEventListener(`change`, () => {
+      clearInterval(timer);
+    /*  presenter.checkTheAnswerOfTypeOne(game, 2, time, currentState);*/
+      setNextLevel(currentState);
+      this.onStart();
+      input.checked = false;
+    });
+  });
+};
 
   onStart() {
 

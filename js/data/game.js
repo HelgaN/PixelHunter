@@ -305,10 +305,10 @@ export const Stats = {
 }
 
 const initialState = Object.freeze({
+  numberOfQuestions: 0,
   level: game[0],
   lives: 3,
   time: 30,
-  numberOfQuestions: 0,
   userAnswers: Array(10).fill(Stats.UNKNOWN)
 });
 

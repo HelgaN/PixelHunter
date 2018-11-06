@@ -25,6 +25,12 @@ export default class GamePresenter {
     return div;
   }
 
+  countQuestions (game) {
+    game.numberOfQuestions++;
+    console.log(game);
+    return game;
+  }
+
   timer() {   // timer
     const time = document.querySelector('.game__timer');
     function updateClock() {
