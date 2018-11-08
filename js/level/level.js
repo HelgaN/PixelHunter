@@ -14,7 +14,7 @@ export default class Level {
     this.view.handler();
 
     this.view.onStart = () => {
-      this.view = new LevelView(currentState);
+      this.view = new LevelView(/*currentState*/);
       this.init();
     };
   }

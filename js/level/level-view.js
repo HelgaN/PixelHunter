@@ -72,10 +72,25 @@ const gameThreeState = (state) => `<p class="game__task">${state.title}<!--На�
         <img src="${state.imgThree.src}" alt="Option 1" width="304" height="455">
       </div>
     </form>`;
-
-  const stats = (statsData) => `<div class="stats">${console.log(statsData.userAnswers)}
+/*
+const stats = (statsData) => `<div class="stats">${console.log(statsData.userAnswers)}
   <ul class="stats">
     ${new Array(statsData.userAnswers.length).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
+  </ul>
+</div>`;*/
+
+const stats = (statsData) => `<div class="stats">
+  <ul class="stats">
+    <li class="stats__result stats__result--${statsData.userAnswers[0]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[1]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[2]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[3]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[4]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[5]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[6]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[7]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[8]}"></li>
+    <li class="stats__result stats__result--${statsData.userAnswers[9]}"></li>
   </ul>
 </div>`;
 
@@ -99,6 +114,7 @@ export default class LevelView extends GamePresenter {
         break;
       case types.THREE:
         levelType = gameThreeState(question);
+
         break;
       default:
       }
@@ -130,8 +146,6 @@ export default class LevelView extends GamePresenter {
       }
    return handler;
   }
-
-
 
   onStart() {
 

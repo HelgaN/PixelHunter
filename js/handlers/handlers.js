@@ -1,4 +1,4 @@
-import {addElement} from './../util';
+/*import {addElement} from './../util';
 import greetingElement from './../screen/greeting-screen';
 import rulesElement from './../screen/rules-screen';
 
@@ -9,7 +9,7 @@ import {questionThree, questionSix, questionNine} from './../screen/game-3-scree
 import GamePresenter from './../game/game';
 import {currentState, countQuestions, game, Stats} from './../data/game';
 import initialState from './../data/game';
-import Application from './../app';
+import Application from './../app';*/
 
 
 // intro - greeting
@@ -57,7 +57,7 @@ const transitionGameOne = () => {
   const button = document.querySelector(`.rules__button`);
   input.onchange = () => inputChange(input, button);
 }*/
-
+/*
 const transitionGameTwo = () => {
   transitionPrevPage();
   const presenter = new GamePresenter(currentState);
@@ -217,7 +217,7 @@ const transitionStats = () => {
   imgs.forEach(function (img) {
     img.addEventListener(`click`, function (evt) {
       const time = document.querySelector('.game__timer').textContent;
-      /*addElement(statsElement, transitionPrevPage);*/
+      /*addElement(statsElement, transitionPrevPage);*//*
       if(currentState.numberOfQuestions == 3) {
         clearInterval(timerQ3);
         presenter.checkTheAnswerOfTypeThree(evt, game, 3, time, currentState);
@@ -234,3 +234,4 @@ const transitionStats = () => {
     });
   });
 }
+*/

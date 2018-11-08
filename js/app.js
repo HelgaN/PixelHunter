@@ -1,6 +1,3 @@
-import introElement from './screen/intro-screen';
-import greetingElement from './screen/greeting-screen';
-import rulesElement from './screen/rules-screen';
 import footerElement from './screen/footer';
 import {addElement} from './util';
 import {transitionRules, transitionGo, transitionPrevPage} from './handlers/handlers';
