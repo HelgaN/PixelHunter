@@ -73,7 +73,7 @@ const gameThreeState = (state) => `<p class="game__task">${state.title}<!--На�
       </div>
     </form>`;
 
-const stats = (statsData) => `<div class="stats">
+  const stats = (statsData) => `<div class="stats">${console.log(statsData.userAnswers)}
   <ul class="stats">
     ${new Array(statsData.userAnswers.length).fill(`<li class="stats__result stats__result--unknown"></li>`).join(``)}
   </ul>
@@ -114,7 +114,6 @@ export default class LevelView extends GamePresenter {
   get handler() {
     let question = game[this.state.numberOfQuestions];
     let thisLevelType = question.type;
-    console.log(thisLevelType);
     let handler;
 
     switch (thisLevelType) {
@@ -125,52 +124,14 @@ export default class LevelView extends GamePresenter {
         handler = this.newScreenHandlerTypeTwo;
         break;
       case types.THREE:
-
+        handler = this.newScreenHandlerTypeThree;
         break;
       default:
       }
    return handler;
   }
 
-  newScreenHandlerTypeTwo() {
-    this.transitionPrevPage();
-    let timer = this.timer();
-    const setNextLevel = this.countQuestions;
 
-    const inputs = document.querySelectorAll(`input`);
-
-    inputs.forEach((input) => {
-      input.addEventListener(`change`, () => {
-        let inputsSelected = document.querySelectorAll(`input:checked`);
-        if (inputsSelected.length === 2) {
-          const time = document.querySelector('.game__timer').textContent;
-          clearInterval(timer);
-        /*presenter.checkTheAnswerOfTypeTwo(game, 1, time, currentState);*/
-          setNextLevel(currentState);
-          this.onStart();
-          inputsSelected[0].checked = false;
-          inputsSelected[1].checked = false;
-        }
-      });
-    });
-}
-
-newScreenHandlerTypeOne() {
-  this.transitionPrevPage();
-  let timer = this.timer();
-  const setNextLevel = this.countQuestions;
-
-  const inputs = document.querySelectorAll(`input`);
-  inputs.forEach((input) => {
-    input.addEventListener(`change`, () => {
-      clearInterval(timer);
-    /*  presenter.checkTheAnswerOfTypeOne(game, 2, time, currentState);*/
-      setNextLevel(currentState);
-      this.onStart();
-      input.checked = false;
-    });
-  });
-};
 
   onStart() {
 

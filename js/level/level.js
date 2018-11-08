@@ -12,10 +12,8 @@ export default class Level {
   init() {
     changeView(this.view.getTemplate());
     this.view.handler();
-  /*  this.view.newScreenHandlerTypeTwo();*/
 
     this.view.onStart = () => {
-      console.log(`новый уровень`);
       this.view = new LevelView(currentState);
       this.init();
     };

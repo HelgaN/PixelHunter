@@ -64,35 +64,41 @@ export default class GamePresenter {
       el.classList.add(`stats__result--${state.userAnswers[i]}`);
     });
   };
-
+/*
   handlingAnInvalidResponse() {
     currentState.userAnswers[currentState.numberOfQuestions - 1] = `wrong`;
     (currentState.lives > 0) ? currentState.lives -= 1 : currentState.lives;
     return currentState.lives;
+  };*/
+  handlingAnInvalidResponse() {
+    currentState.userAnswers[currentState.numberOfQuestions] = `wrong`;
+    (currentState.lives > 0) ? currentState.lives -= 1 : currentState.lives;
+    return currentState.lives;
   };
 
-  checkTheAnswerOfTypeTwo (data, numQuestion, time, gameState) {
+  checkTheAnswerOfTypeTwo (data, time, gameState) {
+    console.log(data, time, gameState);
     const inputsSelected = document.querySelectorAll(`input:checked`);
-    ((inputsSelected[0].value == data[numQuestion - 1].imgOne.answer && inputsSelected[1].value == data[numQuestion - 1].imgTwo.answer)) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    ((inputsSelected[0].value == data[gameState.numberOfQuestions].imgOne.answer && inputsSelected[1].value == data[gameState.numberOfQuestions].imgTwo.answer)) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
   }
 
-  checkTheAnswerOfTypeOne (data, numQuestion, time, gameState) {
+  checkTheAnswerOfTypeOne (data, time, gameState) {
     const inputSelected = document.querySelector(`input:checked`);
-    (inputSelected.value == data[numQuestion - 1].imgOne.answer) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    (inputSelected.value == data[gameState.numberOfQuestions].imgOne.answer) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
   }
 
-  checkTheAnswerOfTypeThree (evt, data, numQuestion, time, gameState) {
+  checkTheAnswerOfTypeThree (evt, data, time, gameState) {
     const img = evt.target.querySelector(`img`);
     const srcImg = img.src;
-    const imgs = [data[numQuestion - 1].imgOne.src, data[numQuestion - 1].imgTwo.src, data[numQuestion - 1].imgThree.src];
+    const imgs = [data[gameState.numberOfQuestions].imgOne.src, data[gameState.numberOfQuestions].imgTwo.src, data[gameState.numberOfQuestions].imgThree.src];
     const indexImg = imgs.indexOf(srcImg);
 
     if(indexImg === 0) {
-      (data[numQuestion - 1].imgOne.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      (data[gameState.numberOfQuestions].imgOne.answer === `paint`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
     } else if(indexImg === 1) {
-      (data[numQuestion - 1].imgTwo.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      (data[gameState.numberOfQuestions].imgTwo.answer === `paint`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
     } else {
-      (data[numQuestion - 1].imgThree.answer === `paint`) ? gameState.userAnswers[currentState.numberOfQuestions - 1] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      (data[gameState.numberOfQuestions].imgThree.answer === `paint`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
     }
   }
 
@@ -159,6 +165,66 @@ export default class GamePresenter {
 
     return right + quick + live + slow;
   }
+
+  newScreenHandlerTypeTwo() {
+    this.transitionPrevPage();
+    let timer = this.timer();
+    const setNextLevel = this.countQuestions;
+
+    const inputs = document.querySelectorAll(`input`);
+
+    inputs.forEach((input) => {
+      input.addEventListener(`change`, () => {
+        let inputsSelected = document.querySelectorAll(`input:checked`);
+        if (inputsSelected.length === 2) {
+          const time = document.querySelector('.game__timer').textContent;
+          clearInterval(timer);
+          this.checkTheAnswerOfTypeTwo(game, time, currentState);
+          setNextLevel(currentState);
+          this.onStart();
+          inputsSelected[0].checked = false;
+          inputsSelected[1].checked = false;
+        }
+      });
+    });
+}
+
+newScreenHandlerTypeOne() {
+  this.transitionPrevPage();
+  let timer = this.timer();
+  const setNextLevel = this.countQuestions;
+
+  const inputs = document.querySelectorAll(`input`);
+  inputs.forEach((input) => {
+    input.addEventListener(`change`, () => {
+      const time = document.querySelector('.game__timer').textContent;
+      clearInterval(timer);
+      this.checkTheAnswerOfTypeOne(game, time, currentState);
+      setNextLevel(currentState);
+      this.onStart();
+      input.checked = false;
+    });
+  });
+};
+
+newScreenHandlerTypeThree() {
+  this.transitionPrevPage();
+  let timer = this.timer();
+  const setNextLevel = this.countQuestions;
+
+  const imgs = document.querySelectorAll(`.game__option`);
+
+  imgs.forEach((img) => {
+    img.addEventListener(`click`, (evt) => {
+      const time = document.querySelector('.game__timer').textContent;
+      clearInterval(timer);
+      this.checkTheAnswerOfTypeThree(evt, game, time, currentState);
+      setNextLevel(currentState);
+      this.onStart();
+    });
+  });
+
+}
 
 
   /*Конструктор должен принимать состояние игры state
