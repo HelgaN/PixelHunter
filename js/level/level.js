@@ -14,8 +14,13 @@ export default class Level {
     this.view.handler();
 
     this.view.onStart = () => {
-      this.view = new LevelView(/*currentState*/);
-      this.init();
+      if(currentState.lives > 0 && currentState.numberOfQuestions < 10) {
+        console.log(currentState.lives);
+        this.view = new LevelView(/*currentState*/);
+        this.init();
+      } else {
+        application.showStats();
+      }
     };
   }
 };

@@ -2,12 +2,12 @@ import footerElement from './screen/footer';
 import {addElement} from './util';
 import {transitionRules, transitionGo, transitionPrevPage} from './handlers/handlers';
 import {currentState} from './data/game';
-import statsElement from './screen/stats-screen';
 
 import Welcome from './welcome/welcome';
 import Greeting from './greeting/greeting';
 import Rules from './rules/rules';
 import Level from './level/level';
+import Stats from './stats/stats';
 
 const ControllerID = {
   WELCOME: ``,
@@ -25,7 +25,8 @@ class Application {
       [ControllerID.WELCOME]: Welcome,
       [ControllerID.GREETING]: Greeting,
       [ControllerID.RULES]: Rules,
-      [ControllerID.GAME]: Level
+      [ControllerID.GAME]: Level,
+      [ControllerID.STATS]: Stats
     }
 
   window.onhashchange = () => {
@@ -67,9 +68,10 @@ class Application {
     //addElement(greetingElement, transitionGo);
   }
 
-  static showStats(state) {
+  showStats(state) {
+    location.hash = ControllerID.STATS;
     //statsScreen.init(stats);
-    addElement(statsElement(state), transitionPrevPage);
+    //addElement(statsElement(state), transitionPrevPage);
   }
 
 }
