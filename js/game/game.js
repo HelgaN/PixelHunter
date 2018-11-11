@@ -170,6 +170,11 @@ export default class GamePresenter {
     this.transitionPrevPage();
     let timer = this.timer();
     const setNextLevel = this.countQuestions;
+    const setTime = setTimeout(() => {
+      this.handlingAnInvalidResponse();
+      setNextLevel(currentState);
+      this.onStart();
+    }, 31000);
 
     const inputs = document.querySelectorAll(`input`);
 
@@ -179,6 +184,7 @@ export default class GamePresenter {
         if (inputsSelected.length === 2) {
           const time = document.querySelector('.game__timer').textContent;
           clearInterval(timer);
+          clearInterval(setTime);
           this.checkTheAnswerOfTypeTwo(game, time, currentState);
           setNextLevel(currentState);
           this.onStart();
@@ -193,12 +199,18 @@ newScreenHandlerTypeOne() {
   this.transitionPrevPage();
   let timer = this.timer();
   const setNextLevel = this.countQuestions;
+  const setTime = setTimeout(() => {
+    this.handlingAnInvalidResponse();
+    setNextLevel(currentState);
+    this.onStart();
+  }, 31000);
 
   const inputs = document.querySelectorAll(`input`);
   inputs.forEach((input) => {
     input.addEventListener(`change`, () => {
       const time = document.querySelector('.game__timer').textContent;
       clearInterval(timer);
+      clearInterval(setTime);
       this.checkTheAnswerOfTypeOne(game, time, currentState);
       setNextLevel(currentState);
       this.onStart();
@@ -211,6 +223,11 @@ newScreenHandlerTypeThree() {
   this.transitionPrevPage();
   let timer = this.timer();
   const setNextLevel = this.countQuestions;
+  const setTime = setTimeout(() => {
+    this.handlingAnInvalidResponse();
+    setNextLevel(currentState);
+    this.onStart();
+  }, 31000);
 
   const imgs = document.querySelectorAll(`.game__option`);
 
@@ -218,6 +235,7 @@ newScreenHandlerTypeThree() {
     img.addEventListener(`click`, (evt) => {
       const time = document.querySelector('.game__timer').textContent;
       clearInterval(timer);
+      clearInterval(setTime);
       this.checkTheAnswerOfTypeThree(evt, game, time, currentState);
       setNextLevel(currentState);
       this.onStart();

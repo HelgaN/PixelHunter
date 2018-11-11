@@ -81,16 +81,9 @@ const stats = (statsData) => `<div class="stats">${console.log(statsData.userAns
 
 const stats = (statsData) => `<div class="stats">
   <ul class="stats">
-    <li class="stats__result stats__result--${statsData.userAnswers[0]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[1]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[2]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[3]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[4]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[5]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[6]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[7]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[8]}"></li>
-    <li class="stats__result stats__result--${statsData.userAnswers[9]}"></li>
+    ${statsData.userAnswers.map((item, i) => {
+      return `<li class="stats__result stats__result--${statsData.userAnswers[i]}"></li>`
+    })}
   </ul>
 </div>`;
 

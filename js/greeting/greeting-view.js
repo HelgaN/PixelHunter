@@ -11,6 +11,7 @@ const rules = `<p>Правила игры просты.<br>
         Помни, главное — смотреть очень внимательно.</p>`;
 
 export default class GreetingView extends GamePresenter {
+
   get template() {
     const greeting = `
       <div class="greeting central--blur">
