@@ -1,6 +1,5 @@
 import footerElement from './screen/footer';
 import {addElement} from './util';
-import {transitionRules, transitionGo, transitionPrevPage} from './handlers/handlers';
 import {currentState} from './data/game';
 
 import Welcome from './welcome/welcome';
