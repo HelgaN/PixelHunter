@@ -1,3 +1,5 @@
+import gameAdapter from './data/game-adapter';
+
 export class DefaultAdapter {
   constructor() {
     if(new.target === DefaultAdapter) {
@@ -27,8 +29,8 @@ export default class Model {
 
   load(adapter = defaultAdapter) {
     return fetch(this.urlRead)
-      .then((response) => response.json());
-
+      .then((response) => response.json())
+      /*.then(adapter.preprocess);*/
   }
 
   send() {
