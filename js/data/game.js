@@ -1,12 +1,13 @@
-export const fetch = window.fetch(`https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`)
+/*export const fetch = window.fetch(`https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`)
   .then(function(response) {
     if(response.status === 200) {
-      console.log(response.json());
+      return response.json();
     } else {
       throw new Error (`Ошибка соединения!`);
     }
-  });
-
+  })
+  .then((data)=> console.log(data));
+*/
 
 export const Result = {
   PAINT: `paint`,

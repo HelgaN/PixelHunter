@@ -1,12 +1,9 @@
-import footerElement from './screen/footer';
-import {addElement} from './util';
-import {currentState} from './data/game';
-
 import Welcome from './welcome/welcome';
 import Greeting from './greeting/greeting';
 import Rules from './rules/rules';
 import Level from './level/level';
 import Stats from './stats/stats';
+import Model from './model';
 
 const ControllerID = {
   WELCOME: ``,
@@ -20,6 +17,21 @@ const getControllerIDFromHash = (hash) => hash.replace(`#`, ``);
 
 class Application {
   constructor() {
+    const preload = this.showWelcome();
+
+    this.model = new class extends Model {
+      get urlRead() {
+        return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`;
+      }
+
+      get urlWrite() {
+        return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/stats/:username`;
+      }
+    }();
+
+    this.model.load()
+      .then((data) => console.log(data));
+
     this.routes = {
       [ControllerID.WELCOME]: Welcome,
       [ControllerID.GREETING]: Greeting,
@@ -44,33 +56,22 @@ class Application {
 
   showWelcome() {
     location.hash = ControllerID.WELCOME;
-
-    /*addElement(introElement, transitionRules);
-    document.body.appendChild(footerElement);*/
   }
 
   showGreeting() {
     location.hash = ControllerID.GREETING;
-  //  addElement(greetingElement, transitionGo);
-  //  greetingElement.init();
   }
 
   showRules() {
     location.hash = ControllerID.RULES;
-    //rulesElement.init();
-    //addElement(rulesElement, transitionGameOne);
   }
 
   showGame() {
     location.hash = ControllerID.GAME;
-    //newGameScreen.init();
-    //addElement(greetingElement, transitionGo);
   }
 
   showStats(state) {
     location.hash = ControllerID.STATS;
-    //statsScreen.init(stats);
-    //addElement(statsElement(state), transitionPrevPage);
   }
 
 }

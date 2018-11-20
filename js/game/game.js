@@ -272,7 +272,4 @@ newScreenHandlerTypeThree() {
     return this._element;
   }
 
-
-
-
 }
