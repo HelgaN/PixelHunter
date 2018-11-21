@@ -4,6 +4,7 @@ import Rules from './rules/rules';
 import Level from './level/level';
 import Stats from './stats/stats';
 import Model from './model';
+import gameAdapter from './data/game-adapter';
 
 const ControllerID = {
   WELCOME: ``,
@@ -29,7 +30,7 @@ class Application {
       }
     }();
 
-    this.model.load()
+    this.model.load(gameAdapter)
       .then((data) => console.log(data));
 
     this.routes = {
