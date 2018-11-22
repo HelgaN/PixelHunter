@@ -15,11 +15,11 @@ const headerGame = (state) => `<header class="header">
     </div>
   </header>`;
 
-const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Угадайте для каждого изображения фото или рисунок?--></p>
+const gameTwoState = (state) => `<p class="game__task">${state.question}<!--Угадайте для каждого изображения фото или рисунок?--></p>
     <form class="game__content">
       <div class="game__option">
       <!--http://placehold.it/468x458 -->
-        <img src="${state.imgOne.src}" alt="Option 1" width="468" height="458">
+        <img src="${state.imgOneUrl}" alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -31,7 +31,7 @@ const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
       <div class="game__option">
       <!--http://placehold.it/468x458 -->
-        <img src="${state.imgTwo.src}" alt="Option 2" width="468" height="458">
+        <img src="${state.imgTwoUrl}" alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
           <input name="question2" type="radio" value="photo">
           <span>Фото</span>
@@ -43,11 +43,11 @@ const gameTwoState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
     </form>`;
 
-const gameOneState = (state) => `<p class="game__task">${state.title}<!--Угадай, фото или рисунок?--></p>
+const gameOneState = (state) => `<p class="game__task">${state.question}<!--Угадай, фото или рисунок?--></p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
       <!-- http://placehold.it/705x455-->
-        <img src="${state.imgOne.src}" alt="Option 1" width="705" height="455">
+        <img src="${state.imgOneUrl}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -59,17 +59,17 @@ const gameOneState = (state) => `<p class="game__task">${state.title}<!--Уга�
       </div>
     </form>`;
 
-const gameThreeState = (state) => `<p class="game__task">${state.title}<!--Найдите рисунок среди изображений--></p>
+const gameThreeState = (state) => `<p class="game__task">${state.question}<!--Найдите рисунок среди изображений--></p>
     <form class="game__content  game__content--triple">
     <!-- http://placehold.it/304x455-->
       <div class="game__option">
-        <img src="${state.imgOne.src}" alt="Option 1" width="304" height="455">
+        <img src="${state.imgOneUrl}" alt="Option 1" width="304" height="455">
       </div>
       <div class="game__option  game__option--selected">
-        <img src="${state.imgTwo.src}" alt="Option 1" width="304" height="455">
+        <img src="${state.imgTwoUrl}" alt="Option 1" width="304" height="455">
       </div>
       <div class="game__option">
-        <img src="${state.imgThree.src}" alt="Option 1" width="304" height="455">
+        <img src="${state.imgThreeUrl}" alt="Option 1" width="304" height="455">
       </div>
     </form>`;
 /*
@@ -88,13 +88,93 @@ const stats = (statsData) => `<div class="stats">
 </div>`;
 
 export default class LevelView extends GamePresenter {
-  constructor(state = currentState) {
-      super();
-      this.state = state;
+  constructor(state, data) {
+    super();
+    this.state = state;
+    this.data = data;
   }
 
+  newScreenHandlerTypeTwo() {
+    this.transitionPrevPage();
+    let timer = this.timer();
+    const setNextLevel = this.countQuestions;
+    const setTime = setTimeout(() => {
+      this.handlingAnInvalidResponse();
+      setNextLevel(this.state);
+      this.onStart();
+    }, 31000);
+
+    const inputs = document.querySelectorAll(`input`);
+
+    inputs.forEach((input) => {
+      input.addEventListener(`change`, () => {
+        let inputsSelected = document.querySelectorAll(`input:checked`);
+        if (inputsSelected.length === 2) {
+          const time = document.querySelector('.game__timer').textContent;
+          clearInterval(timer);
+          clearInterval(setTime);
+          this.checkTheAnswerOfTypeTwo(this.data, time, this.state);
+          setNextLevel(this.state);
+          this.onStart();
+          inputsSelected[0].checked = false;
+          inputsSelected[1].checked = false;
+        }
+      });
+    });
+}
+
+newScreenHandlerTypeOne() {
+  this.transitionPrevPage();
+  let timer = this.timer();
+  const setNextLevel = this.countQuestions;
+  const setTime = setTimeout(() => {
+    this.handlingAnInvalidResponse();
+    setNextLevel(this.state);
+    this.onStart();
+  }, 31000);
+
+  const inputs = document.querySelectorAll(`input`);
+  inputs.forEach((input) => {
+    input.addEventListener(`change`, () => {
+      const time = document.querySelector('.game__timer').textContent;
+      clearInterval(timer);
+      clearInterval(setTime);
+      this.checkTheAnswerOfTypeOne(this.data, time, this.state);
+      setNextLevel(this.state);
+      this.onStart();
+      input.checked = false;
+    });
+  });
+};
+
+newScreenHandlerTypeThree() {
+  this.transitionPrevPage();
+  let timer = this.timer();
+  const setNextLevel = this.countQuestions;
+  const setTime = setTimeout(() => {
+    this.handlingAnInvalidResponse();
+    setNextLevel(this.state);
+    this.onStart();
+  }, 31000);
+
+  const imgs = document.querySelectorAll(`.game__option`);
+
+  imgs.forEach((img) => {
+    img.addEventListener(`click`, (evt) => {
+      const time = document.querySelector('.game__timer').textContent;
+      clearInterval(timer);
+      clearInterval(setTime);
+      this.checkTheAnswerOfTypeThree(evt, this.data, time, this.state);
+      setNextLevel(this.state);
+      this.onStart();
+    });
+  });
+
+}
+
   get template() {
-    let question = game[this.state.numberOfQuestions];
+    let question = this.data[this.state.numberOfQuestions];
+    console.log(question);
     let thisLevelType = question.type;
     let levelType;
 
@@ -107,7 +187,6 @@ export default class LevelView extends GamePresenter {
         break;
       case types.THREE:
         levelType = gameThreeState(question);
-
         break;
       default:
       }
@@ -121,7 +200,7 @@ export default class LevelView extends GamePresenter {
   }
 
   get handler() {
-    let question = game[this.state.numberOfQuestions];
+    let question = this.data[this.state.numberOfQuestions];
     let thisLevelType = question.type;
     let handler;
 

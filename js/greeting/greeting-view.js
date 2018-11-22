@@ -11,7 +11,6 @@ const rules = `<p>Правила игры просты.<br>
         Помни, главное — смотреть очень внимательно.</p>`;
 
 export default class GreetingView extends GamePresenter {
-
   get template() {
     const greeting = `
       <div class="greeting central--blur">
@@ -30,14 +29,11 @@ export default class GreetingView extends GamePresenter {
   newScreenHandler() {
     const button = document.querySelector(`.greeting__continue`);
     button.onclick = () => {
-      console.log(`rules!!`);
       this.onStart();
-      //addElement(rulesElement, transitionGameOne);
     }
   }
 
   onStart() {
 
   }
-
 }

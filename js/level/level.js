@@ -1,12 +1,12 @@
 import LevelView from './level-view';
 import {changeView} from './../util';
 import application from './../app';
-import {currentState} from './../data/game';
 
 export default class Level {
-  constructor(state = currentState) {
+  constructor(state, data) {
     this.state = state;
-    this.view = new LevelView();
+    this.data = data;
+    this.view = new LevelView(this.state, this.data);
   }
 
   init() {
@@ -14,9 +14,8 @@ export default class Level {
     this.view.handler();
 
     this.view.onStart = () => {
-      if(currentState.lives > 0 && currentState.numberOfQuestions < 10) {
-        console.log(currentState.lives);
-        this.view = new LevelView(/*currentState*/);
+      if(this.state.lives > 0 && this.state.numberOfQuestions < 10) {
+        this.view = new LevelView(this.state, this.data);
         this.init();
       } else {
         application.showStats();

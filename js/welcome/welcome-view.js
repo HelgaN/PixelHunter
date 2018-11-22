@@ -1,5 +1,4 @@
 import GamePresenter from './../game/game';
-import application from './../app';
 
 export default class WelcomeView extends GamePresenter {
   get template() {
@@ -14,8 +13,7 @@ export default class WelcomeView extends GamePresenter {
   newScreenHandler() {
     const button = document.querySelector(`.intro__asterisk`);
     button.onclick = () => {
-      console.log(`qack!`);
-      /*addElement(greetingElement, transitionGo);*/this.onStart();
+      this.onStart();
     };
   }
 

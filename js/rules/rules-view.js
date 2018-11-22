@@ -48,15 +48,14 @@ export default class RulesView extends GamePresenter {
       }
     };
 
-      this.transitionPrevPage();
-      const input = document.querySelector(`.rules__input`);
-      const button = document.querySelector(`.rules__button`);
-      input.onchange = () => inputChange(input, button);
+    this.transitionPrevPage();
+    const input = document.querySelector(`.rules__input`);
+    const button = document.querySelector(`.rules__button`);
+    input.onchange = () => inputChange(input, button);
   }
 
   onStart() {
 
   }
-
 
 }

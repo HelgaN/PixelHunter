@@ -7,30 +7,36 @@ export default new class extends DefaultAdapter {
     data.forEach((item, i) => {
       switch (item.type) {
         case `tinder-like`:
-          item.imgOne = item.answers[0].image.url;
+          item.imgOneUrl = item.answers[0].image.url;
           item.imgOneWidth = item.answers[0].image.width;
           item.imgOneHeight = item.answers[0].image.height;
+          item.imgOneAnswer = item.answers[0].type;
           delete item.answers;
           break;
         case `two-of-two`:
-          item.imgOne = item.answers[0].image.url;
+          item.imgOneUrl = item.answers[0].image.url;
           item.imgOneWidth = item.answers[0].image.width;
           item.imgOneHeight = item.answers[0].image.height;
-          item.imgTwo = item.answers[1].image.url;
+          item.imgOneAnswer = item.answers[0].type;
+          item.imgTwoUrl = item.answers[1].image.url;
           item.imgTwoWidth = item.answers[1].image.width;
           item.imgTwoHeight = item.answers[1].image.height;
+          item.imgTwoAnswer = item.answers[1].type;
           delete item.answers;
           break;
-        case `one-of-thre`:
-          item.imgOne = item.answers[0].image.url;
+        case `one-of-three`:
+          item.imgOneUrl = item.answers[0].image.url;
           item.imgOneWidth = item.answers[0].image.width;
           item.imgOneHeight = item.answers[0].image.height;
-          item.imgTwo = item.answers[1].image.url;
+          item.imgOneAnswer = item.answers[0].type;
+          item.imgTwoUrl = item.answers[1].image.url;
           item.imgTwoWidth = item.answers[1].image.width;
           item.imgTwoHeight = item.answers[1].image.height;
-          item.imgThree = item.answers[2].image.url;
+          item.imgTwoAnswer = item.answers[1].type;
+          item.imgThreeUrl = item.answers[2].image.url;
           item.imgThreeWidth = item.answers[2].image.width;
           item.imgThreeHeight = item.answers[2].image.height;
+          item.imgThreeAnswer = item.answers[2].type;
           delete item.answers;
           break;
         default:

@@ -5,6 +5,7 @@ import Level from './level/level';
 import Stats from './stats/stats';
 import Model from './model';
 import gameAdapter from './data/game-adapter';
+import {game, currentState} from './data/game';
 
 const ControllerID = {
   WELCOME: ``,
@@ -18,7 +19,7 @@ const getControllerIDFromHash = (hash) => hash.replace(`#`, ``);
 
 class Application {
   constructor() {
-    const preload = this.showWelcome();
+  /*  const preload = this.showWelcome();*/
 
     this.model = new class extends Model {
       get urlRead() {
@@ -31,29 +32,36 @@ class Application {
     }();
 
     this.model.load(gameAdapter)
-      .then((data) => console.log(data));
+      .then((data) => this.setup(data))
+    /*  .then(preload)*/
+      .then(() => this.changeController(getControllerIDFromHash(location.hash)));
 
+  }
+
+  setup(data) {
+    console.log(data)
     this.routes = {
-      [ControllerID.WELCOME]: Welcome,
-      [ControllerID.GREETING]: Greeting,
-      [ControllerID.RULES]: Rules,
-      [ControllerID.GAME]: Level,
-      [ControllerID.STATS]: Stats
+      [ControllerID.WELCOME]: new Welcome(),
+      [ControllerID.GREETING]: new Greeting(),
+      [ControllerID.RULES]: new Rules(),
+      [ControllerID.GAME]: new Level(currentState, data),
+      [ControllerID.STATS]: new Stats()
     }
 
-  window.onhashchange = () => {
-    this.changeController(getControllerIDFromHash(location.hash));
-   }
+    window.onhashchange = () => {
+      this.changeController(getControllerIDFromHash(location.hash));
+    }
   }
 
   changeController(route = ``) {
-    const Controller = this.routes[route];
-    new Controller().init();
+  /*const Controller = this.routes[route];
+    new Controller().init();*/
+    this.routes[route].init();
   }
-
+/*
   init() {
     this.changeController(getControllerIDFromHash(location.hash));
-  }
+  }*/
 
   showWelcome() {
     location.hash = ControllerID.WELCOME;
@@ -78,6 +86,6 @@ class Application {
 }
 
 const application = new Application();
-application.init();
+/*application.init();*/
 
 export default application;
