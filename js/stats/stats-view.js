@@ -123,8 +123,8 @@ const header = `<header class="header">
         return stats;
       }
 
-      get handler() {
-
+      newScreenHandler() {
+        this.transitionPrevPage();
       }
 
       onStart() {

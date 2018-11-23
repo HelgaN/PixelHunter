@@ -1,7 +1,7 @@
 import {addElement} from './../util';
 import {currentState, game, Stats} from './../data/game';
 import {getElementFromTemplate} from './../util';
-import Application from './../app';
+import application from './../app';
 
 export default class GamePresenter {
   constructor(state) {
@@ -12,7 +12,8 @@ export default class GamePresenter {
     const backButton = document.querySelector(`.back`);
 
     backButton.onclick = () => {
-      Application.showGreeting();
+      application.showGreeting();
+      application.reset();
     };
   }
 
@@ -72,8 +73,8 @@ export default class GamePresenter {
   };
 
   checkTheAnswerOfTypeTwo (data, time, gameState) {
-    console.log(data, time, gameState);
     const inputsSelected = document.querySelectorAll(`input:checked`);
+    console.log(inputsSelected[0].value + `ffff`);
     ((inputsSelected[0].value == data[gameState.numberOfQuestions].imgOneAnswer && inputsSelected[1].value == data[gameState.numberOfQuestions].imgTwoAnswer)) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
   }
 

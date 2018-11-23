@@ -39,7 +39,6 @@ class Application {
   }
 
   setup(data) {
-    console.log(data)
     this.routes = {
       [ControllerID.WELCOME]: new Welcome(),
       [ControllerID.GREETING]: new Greeting(),
@@ -83,9 +82,15 @@ class Application {
     location.hash = ControllerID.STATS;
   }
 
+  reset() {
+    console.log(application);
+    application = new Application();
+  }
+
 }
 
-const application = new Application();
+let application = new Application();
+
 /*application.init();*/
 
 export default application;
