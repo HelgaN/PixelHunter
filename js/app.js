@@ -83,8 +83,12 @@ class Application {
   }
 
   reset() {
-    console.log(application);
     application = new Application();
+    currentState.numberOfQuestions = 0;
+    currentState.level = ``;
+    currentState.lives = 3;
+    currentState.time = 30;
+    currentState.userAnswers = Array(10).fill(`unknown`);
   }
 
 }
