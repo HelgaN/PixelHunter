@@ -1,5 +1,5 @@
 import GamePresenter from './../game/game';
-import {currentState} from './../data/game';
+import {currentState, prevStates} from './../data/game';
 
 const header = `<header class="header">
     <div class="header__back">
@@ -15,13 +15,13 @@ const header = `<header class="header">
 
 
     export default class statsView extends GamePresenter {
-      constructor(state = currentState) {
+      constructor(state = currentState, states = prevStates) {
           super();
           this.state = state;
+          this.states = states;
       }
 
       get template() {
-        console.log(`${this.state.userAnswers} STATS`)
         const victory = (state) => `<td class="result__points">×&nbsp;100</td>
                 <td class="result__total">${this.calculateRightAnswers(state)}</td>
               </tr>
@@ -59,7 +59,7 @@ const header = `<header class="header">
                 <td class="result__number">1.</td>
                 <td colspan="2">
                   <ul class="stats">
-                    ${this.state.userAnswers.map((item, i) => `<li class="stats__result stats__result--${item}"></li>` )}
+                    ${this.state.userAnswers.map((item, i) => `<li class="stats__result stats__result--${item}"></li>`)}
                   </ul>
                 </td>
                 ${(this.assessTheSuccess(this.state) == `Победа!`) ? victory(this.state) : loss}
@@ -70,20 +70,10 @@ const header = `<header class="header">
                 <td class="result__number">2.</td>
                 <td>
                   <ul class="stats">
-                    <li class="stats__result stats__result--wrong"></li>
-                    <li class="stats__result stats__result--slow"></li>
-                    <li class="stats__result stats__result--fast"></li>
-                    <li class="stats__result stats__result--correct"></li>
-                    <li class="stats__result stats__result--wrong"></li>
-                    <li class="stats__result stats__result--unknown"></li>
-                    <li class="stats__result stats__result--slow"></li>
-                    <li class="stats__result stats__result--wrong"></li>
-                    <li class="stats__result stats__result--fast"></li>
-                    <li class="stats__result stats__result--wrong"></li>
+                    ${this.states[0].userAnswers.map((item, i) => `<li class="stats__result stats__result--${item}"></li>`)}
                   </ul>
                 </td>
-                <td class="result__total"></td>
-                <td class="result__total  result__total--final">fail</td>
+                ${(this.assessTheSuccess(this.states[0]) == `Победа!`) ? victory(this.states[0]) : loss}
               </tr>
             </table>
             <table class="result__table">
@@ -91,30 +81,10 @@ const header = `<header class="header">
                 <td class="result__number">3.</td>
                 <td colspan="2">
                   <ul class="stats">
-                    <li class="stats__result stats__result--wrong"></li>
-                    <li class="stats__result stats__result--slow"></li>
-                    <li class="stats__result stats__result--fast"></li>
-                    <li class="stats__result stats__result--correct"></li>
-                    <li class="stats__result stats__result--wrong"></li>
-                    <li class="stats__result stats__result--unknown"></li>
-                    <li class="stats__result stats__result--slow"></li>
-                    <li class="stats__result stats__result--unknown"></li>
-                    <li class="stats__result stats__result--fast"></li>
-                    <li class="stats__result stats__result--unknown"></li>
+                    ${this.states[1].userAnswers.map((item, i) => `<li class="stats__result stats__result--${item}"></li>`)}
                   </ul>
                 </td>
-                <td class="result__points">×&nbsp;100</td>
-                <td class="result__total">900</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td class="result__extra">Бонус за жизни:</td>
-                <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-                <td class="result__points">×&nbsp;50</td>
-                <td class="result__total">100</td>
-              </tr>
-              <tr>
-                <td colspan="5" class="result__total  result__total--final">950</td>
+                ${(this.assessTheSuccess(this.states[1]) == `Победа!`) ? victory(this.states[1]) : loss}
               </tr>
             </table>
           </div>

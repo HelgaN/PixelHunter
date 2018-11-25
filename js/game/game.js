@@ -1,5 +1,5 @@
 import {addElement} from './../util';
-import {currentState, game, Stats} from './../data/game';
+import {currentState, game, Stats, prevStates} from './../data/game';
 import {getElementFromTemplate} from './../util';
 import application from './../app';
 
@@ -13,6 +13,11 @@ export default class GamePresenter {
 
     backButton.onclick = () => {
       application.showGreeting();
+      console.log(prevStates[0]);
+      prevStates[1].userAnswers = prevStates[0].userAnswers;
+      prevStates[1].lives = prevStates[0].lives;
+      prevStates[0].userAnswers = currentState.userAnswers;
+      prevStates[0].lives = currentState.lives;
       application.reset();
     };
   }
@@ -74,7 +79,6 @@ export default class GamePresenter {
 
   checkTheAnswerOfTypeTwo (data, time, gameState) {
     const inputsSelected = document.querySelectorAll(`input:checked`);
-    console.log(inputsSelected[0].value + `ffff`);
     ((inputsSelected[0].value == data[gameState.numberOfQuestions].imgOneAnswer && inputsSelected[1].value == data[gameState.numberOfQuestions].imgTwoAnswer)) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
   }
 
@@ -88,6 +92,9 @@ export default class GamePresenter {
     const srcImg = img.src;
     const imgs = [data[gameState.numberOfQuestions].imgOneUrl, data[gameState.numberOfQuestions].imgTwoUrl, data[gameState.numberOfQuestions].imgThreeUrl];
     const indexImg = imgs.indexOf(srcImg);
+    console.error(`Logic error! Woop woop woop woop woop woop woop!`);
+    console.log(data[gameState.numberOfQuestions].question.includes(`рисунок`));
+    console.log(data[gameState.numberOfQuestions].question.includes(`фото`));
 
     if(indexImg === 0) {
       (data[gameState.numberOfQuestions].imgOneAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();

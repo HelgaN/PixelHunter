@@ -320,6 +320,19 @@ const initialState = Object.freeze({
 
 export let currentState = Object.assign({}, initialState);
 
+export let prevStates = [
+  {
+    lives: 3,
+    userAnswers: Array(10).fill(Stats.UNKNOWN)
+  },
+  {
+    lives: 3,
+    userAnswers: Array(10).fill(Stats.UNKNOWN)
+  }
+]
+
+console.log(prevStates);
+
 export default initialState;
 
 /*
