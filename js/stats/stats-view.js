@@ -68,7 +68,7 @@ const header = `<header class="header">
             <table class="result__table">
               <tr>
                 <td class="result__number">2.</td>
-                <td>
+                <td colspan="2">
                   <ul class="stats">
                     ${this.states[0].userAnswers.map((item, i) => `<li class="stats__result stats__result--${item}"></li>`)}
                   </ul>
