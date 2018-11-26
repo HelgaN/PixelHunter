@@ -13,7 +13,6 @@ export default class GamePresenter {
 
     backButton.onclick = () => {
       application.showGreeting();
-      console.log(prevStates[0]);
       prevStates[1].userAnswers = prevStates[0].userAnswers;
       prevStates[1].lives = prevStates[0].lives;
       prevStates[0].userAnswers = currentState.userAnswers;

@@ -1,5 +1,17 @@
 @import "colors";
 
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .intro {
   width: 800px;
   height: 740px;
@@ -7,6 +19,8 @@
   background-size: contain;
 
   position: relative;
+  animation-name: zoomIn;
+  animation-duration: 0.8s;
 }
 
 .intro__asterisk {

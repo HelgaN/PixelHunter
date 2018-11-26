@@ -331,8 +331,6 @@ export let prevStates = [
   }
 ]
 
-console.log(prevStates);
-
 export default initialState;
 
 /*

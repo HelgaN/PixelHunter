@@ -19,8 +19,6 @@ const getControllerIDFromHash = (hash) => hash.replace(`#`, ``);
 
 class Application {
   constructor() {
-  /*  const preload = this.showWelcome();*/
-
     this.model = new class extends Model {
       get urlRead() {
         return `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`;
@@ -33,9 +31,7 @@ class Application {
 
     this.model.load(gameAdapter)
       .then((data) => this.setup(data))
-    /*  .then(preload)*/
       .then(() => this.changeController(getControllerIDFromHash(location.hash)));
-
   }
 
   setup(data) {
@@ -57,6 +53,7 @@ class Application {
     new Controller().init();*/
     this.routes[route].init();
   }
+
 /*
   init() {
     this.changeController(getControllerIDFromHash(location.hash));
