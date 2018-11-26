@@ -92,17 +92,26 @@ export default class GamePresenter {
     const srcImg = img.src;
     const imgs = [data[gameState.numberOfQuestions].imgOneUrl, data[gameState.numberOfQuestions].imgTwoUrl, data[gameState.numberOfQuestions].imgThreeUrl];
     const indexImg = imgs.indexOf(srcImg);
-    console.error(`Logic error! Woop woop woop woop woop woop woop!`);
-    console.log(data[gameState.numberOfQuestions].question.includes(`рисунок`));
-    console.log(data[gameState.numberOfQuestions].question.includes(`фото`));
+    const picQuestion = data[gameState.numberOfQuestions].question.includes(`рисунок`);
 
-    if(indexImg === 0) {
-      (data[gameState.numberOfQuestions].imgOneAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
-    } else if(indexImg === 1) {
-      (data[gameState.numberOfQuestions].imgTwoAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+    if(picQuestion) {
+      if(indexImg === 0) {
+        (data[gameState.numberOfQuestions].imgOneAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      } else if(indexImg === 1) {
+        (data[gameState.numberOfQuestions].imgTwoAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      } else {
+        (data[gameState.numberOfQuestions].imgThreeAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      }
     } else {
-      (data[gameState.numberOfQuestions].imgThreeAnswer === `painting`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      if(indexImg === 0) {
+        (data[gameState.numberOfQuestions].imgOneAnswer === `photo`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      } else if(indexImg === 1) {
+        (data[gameState.numberOfQuestions].imgTwoAnswer === `photo`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      } else {
+        (data[gameState.numberOfQuestions].imgThreeAnswer === `photo`) ? gameState.userAnswers[gameState.numberOfQuestions] = this.analyzeTheSpeedOfAnswer(time) : this.handlingAnInvalidResponse();
+      }
     }
+
   }
 
   assessTheSuccess (state) {
