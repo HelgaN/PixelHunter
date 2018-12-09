@@ -12,7 +12,6 @@ export default class GamePresenter {
     const backButton = document.querySelector(`.back`);
 
     backButton.onclick = () => {
-      application.showGreeting();
       prevStates[1].userAnswers = prevStates[0].userAnswers;
       prevStates[1].lives = prevStates[0].lives;
       prevStates[0].userAnswers = currentState.userAnswers;

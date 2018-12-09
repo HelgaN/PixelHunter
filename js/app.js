@@ -16,6 +16,7 @@ const ControllerID = {
 };
 
 const getControllerIDFromHash = (hash) => hash.replace(`#`, ``);
+let resetValue = true;
 
 class Application {
   constructor() {
@@ -31,7 +32,9 @@ class Application {
 
     this.model.load(gameAdapter)
       .then((data) => this.setup(data))
-      .then(() => this.changeController(getControllerIDFromHash(location.hash)));
+      .then(() => {
+        if (resetValue) this.changeController(getControllerIDFromHash(location.hash))
+      });
   }
 
   setup(data) {
@@ -80,12 +83,14 @@ class Application {
   }
 
   reset() {
+    location.hash = ControllerID.GREETING;
     application = new Application();
     currentState.numberOfQuestions = 0;
     currentState.level = ``;
     currentState.lives = 3;
     currentState.time = 30;
     currentState.userAnswers = Array(10).fill(`unknown`);
+    resetValue = false;
   }
 
 }
